@@ -109,44 +109,44 @@ export default function HistoryPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
-              <Calendar size={20} className="text-[#F7F7FF]" />
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 mb-6 md:mb-8">
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-3 sm:p-5 md:p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1.5 sm:gap-2.5 md:gap-3 mb-2 sm:mb-2.5 md:mb-3">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <Calendar size={14} className="text-[#F7F7FF] sm:w-[18px] sm:h-[18px] md:w-5 md:h-5" />
             </div>
-            <div className="text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">This Month</div>
+            <div className="text-[10px] sm:text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">This Month</div>
           </div>
-          <div className="text-4xl font-normal text-[#F7F7FF]">{totalEntries}</div>
-          <div className="text-sm text-[#F7F7FF]/70 mt-1">{totalEntries === 1 ? 'entry' : 'entries'}</div>
+          <div className="text-xl sm:text-3xl md:text-4xl font-normal text-[#F7F7FF]">{totalEntries}</div>
+          <div className="text-[10px] sm:text-sm text-[#F7F7FF]/70 mt-0.5 sm:mt-1">{totalEntries === 1 ? 'entry' : 'entries'}</div>
         </div>
 
-        <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-[#F7F7FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-3 sm:p-5 md:p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1.5 sm:gap-2.5 md:gap-3 mb-2 sm:mb-2.5 md:mb-3">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <svg className="w-3.5 h-3.5 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5 text-[#F7F7FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
               </svg>
             </div>
-            <div className="text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">Total Words</div>
+            <div className="text-[10px] sm:text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">Total Words</div>
           </div>
-          <div className="text-4xl font-normal text-[#F7F7FF]">{totalWords.toLocaleString()}</div>
-          <div className="text-sm text-[#F7F7FF]/70 mt-1">words written</div>
+          <div className="text-xl sm:text-3xl md:text-4xl font-normal text-[#F7F7FF]">{totalWords.toLocaleString()}</div>
+          <div className="text-[10px] sm:text-sm text-[#F7F7FF]/70 mt-0.5 sm:mt-1">words written</div>
         </div>
 
-        <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-[#F7F7FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-3 sm:p-5 md:p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1.5 sm:gap-2.5 md:gap-3 mb-2 sm:mb-2.5 md:mb-3">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <svg className="w-3.5 h-3.5 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5 text-[#F7F7FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
-            <div className="text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">Average</div>
+            <div className="text-[10px] sm:text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">Average</div>
           </div>
-          <div className="text-4xl font-normal text-[#F7F7FF]">
+          <div className="text-xl sm:text-3xl md:text-4xl font-normal text-[#F7F7FF]">
             {totalEntries > 0 ? Math.round(totalWords / totalEntries) : 0}
           </div>
-          <div className="text-sm text-[#F7F7FF]/70 mt-1">words per entry</div>
+          <div className="text-[10px] sm:text-sm text-[#F7F7FF]/70 mt-0.5 sm:mt-1">words per entry</div>
         </div>
       </div>
 

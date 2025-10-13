@@ -19,53 +19,53 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-10">
+      <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:grid-cols-4 mb-8 md:mb-10">
         {/* Current Streak Card */}
-        <div className="border border-[#F7F7FF]/10 p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
-              <Flame className="text-[#F7F7FF]" size={20} />
+        <div className="border border-[#F7F7FF]/10 p-3 sm:p-5 md:p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex items-center justify-between mb-2 sm:mb-3 md:mb-4">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <Flame className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-xs font-normal text-[#F7F7FF]/70 mb-2 uppercase tracking-wide">Current Streak</h3>
-          <p className="text-3xl font-normal text-[#F7F7FF] mb-2">0 <span className="text-lg text-[#F7F7FF]/70">days</span></p>
-          <p className="text-sm text-[#F7F7FF]/50">Keep writing daily</p>
+          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Current Streak</h3>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span></p>
+          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Keep writing daily</p>
         </div>
 
         {/* Total Entries Card */}
-        <div className="border border-[#F7F7FF]/10 p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
-              <BookOpen className="text-[#F7F7FF]" size={20} />
+        <div className="border border-[#F7F7FF]/10 p-3 sm:p-5 md:p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex items-center justify-between mb-2 sm:mb-3 md:mb-4">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <BookOpen className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-xs font-normal text-[#F7F7FF]/70 mb-2 uppercase tracking-wide">Total Entries</h3>
-          <p className="text-3xl font-normal text-[#F7F7FF] mb-2">0 <span className="text-lg text-[#F7F7FF]/70">posts</span></p>
-          <p className="text-sm text-[#F7F7FF]/50">Start your journey</p>
+          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Entries</h3>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">posts</span></p>
+          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Start your journey</p>
         </div>
 
         {/* Total Words Card */}
-        <div className="border border-[#F7F7FF]/10 p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
-              <PenTool className="text-[#F7F7FF]" size={20} />
+        <div className="border border-[#F7F7FF]/10 p-3 sm:p-5 md:p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex items-center justify-between mb-2 sm:mb-3 md:mb-4">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <PenTool className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-xs font-normal text-[#F7F7FF]/70 mb-2 uppercase tracking-wide">Total Words</h3>
-          <p className="text-3xl font-normal text-[#F7F7FF] mb-2">0 <span className="text-lg text-[#F7F7FF]/70">words</span></p>
-          <p className="text-sm text-[#F7F7FF]/50">Every word counts</p>
+          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Words</h3>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">words</span></p>
+          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Every word counts</p>
         </div>
 
         {/* Longest Streak Card */}
-        <div className="border border-[#F7F7FF]/10 p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
-              <Award className="text-[#F7F7FF]" size={20} />
+        <div className="border border-[#F7F7FF]/10 p-3 sm:p-5 md:p-6 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex items-center justify-between mb-2 sm:mb-3 md:mb-4">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <Award className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-xs font-normal text-[#F7F7FF]/70 mb-2 uppercase tracking-wide">Best Streak</h3>
-          <p className="text-3xl font-normal text-[#F7F7FF] mb-2">0 <span className="text-lg text-[#F7F7FF]/70">days</span></p>
-          <p className="text-sm text-[#F7F7FF]/50">Beat your record</p>
+          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Best Streak</h3>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span></p>
+          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Beat your record</p>
         </div>
       </div>
 

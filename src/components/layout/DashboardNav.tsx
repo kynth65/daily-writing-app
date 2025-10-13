@@ -47,7 +47,7 @@ export default function DashboardNav() {
       {/* Mobile menu button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="lg:hidden fixed top-6 left-6 z-50 p-3 bg-[#3A4F41] border border-[#F7F7FF]/10 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-300 cursor-pointer"
+        className="lg:hidden fixed top-6 right-6 z-50 p-3 bg-[#3A4F41] border border-[#F7F7FF]/10 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-300 cursor-pointer"
         aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
       >
         {mobileMenuOpen ? (

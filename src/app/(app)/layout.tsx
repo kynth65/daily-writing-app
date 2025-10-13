@@ -21,7 +21,7 @@ export default async function AppLayout({
     <div className="min-h-screen bg-[#3A4F41]">
       <DashboardNav />
 
-      <main className="lg:ml-72 lg:ml-80 p-6 sm:p-8 lg:p-10 min-h-screen">
+      <main className="px-6 py-6 sm:px-8 sm:py-8 lg:ml-80 lg:p-10 min-h-screen">
         {children}
       </main>
     </div>

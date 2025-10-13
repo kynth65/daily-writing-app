@@ -13,8 +13,16 @@ export default function WritePage() {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const today = format(new Date(), "yyyy-MM-dd");
 
+  // Helper function to check if content is empty
+  const isContentEmpty = (text: string) => {
+    if (!text || text.trim() === '') return true;
+    // Strip HTML tags and check if there's actual text content
+    const stripped = text.replace(/<[^>]*>/g, '').trim();
+    return stripped === '';
+  };
+
   const handleSave = useCallback(async () => {
-    if (!content || content.trim() === '' || content === '<p></p>') {
+    if (isContentEmpty(content)) {
       return;
     }
 
@@ -57,7 +65,7 @@ export default function WritePage() {
   };
 
   return (
-    <div className="relative min-h-screen -mt-8 -mx-8 bg-[#3A4F41]">
+    <div className="relative min-h-screen -my-6 -ml-20 -mr-6 sm:-my-8 sm:-ml-24 sm:-mr-8 lg:-m-10 bg-[#3A4F41]">
       {/* Floating Status Indicator */}
       <div className="fixed top-8 right-8 z-20">
         {saveStatus === "saved" && (
@@ -81,7 +89,7 @@ export default function WritePage() {
       </div>
 
       {/* Main Editor Container */}
-      <div className="max-w-4xl mx-auto px-8 py-16">
+      <div className="max-w-4xl mx-auto pl-24 pr-8 py-16 sm:pl-28 sm:pr-8 lg:px-8">
         {/* Subtle date header */}
         <div className="text-center mb-8">
           <p className="text-sm font-normal text-[#F7F7FF]/50 tracking-wide uppercase mb-2">
@@ -132,7 +140,7 @@ export default function WritePage() {
         <div className="flex justify-center mt-8">
           <button
             onClick={handleSave}
-            disabled={saveStatus === 'saving' || !content || content.trim() === '' || content === '<p></p>'}
+            disabled={saveStatus === 'saving' || isContentEmpty(content)}
             className="flex items-center gap-2 px-8 py-3 text-base font-normal text-[#F7F7FF] bg-[#3A4F41] border border-[#F7F7FF]/20 hover:bg-[#F7F7FF]/5 hover:border-[#F7F7FF]/30 rounded-lg transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#3A4F41] disabled:hover:border-[#F7F7FF]/20"
           >
             {saveStatus === 'saving' ? (

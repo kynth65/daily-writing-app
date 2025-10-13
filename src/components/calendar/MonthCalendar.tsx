@@ -67,33 +67,36 @@ export function MonthCalendar({ entries, onDayClick, currentMonth, onMonthChange
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+    <div className="border border-[#F7F7FF]/10 rounded-lg overflow-hidden">
       {/* Calendar header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+      <div className="flex items-center justify-between p-3 sm:p-4 md:p-5 border-b border-[#F7F7FF]/10 bg-[#3A4F41]">
         <button
           onClick={handlePrevMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center hover:bg-[#F7F7FF]/10 hover:border-[#F7F7FF]/30 transition-all duration-200"
           aria-label="Previous month"
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={18} className="text-[#F7F7FF] sm:w-5 sm:h-5" />
         </button>
 
-        <h2 className="text-lg font-normal">{format(currentMonth, 'MMMM yyyy')}</h2>
+        <h2 className="text-base sm:text-lg md:text-xl font-normal text-[#F7F7FF] tracking-wide">
+          {format(currentMonth, 'MMMM yyyy')}
+        </h2>
 
         <button
           onClick={handleNextMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center hover:bg-[#F7F7FF]/10 hover:border-[#F7F7FF]/30 transition-all duration-200"
           aria-label="Next month"
         >
-          <ChevronRight size={20} />
+          <ChevronRight size={18} className="text-[#F7F7FF] sm:w-5 sm:h-5" />
         </button>
       </div>
 
       {/* Weekday headers */}
-      <div className="grid grid-cols-7 border-b border-gray-200">
+      <div className="grid grid-cols-7 border-b border-[#F7F7FF]/10 bg-[#3A4F41]">
         {weekDays.map((day) => (
-          <div key={day} className="p-2 text-center text-sm font-normal text-gray-600">
-            {day}
+          <div key={day} className="p-1.5 sm:p-2 md:p-3 text-center text-xs sm:text-sm font-normal text-[#F7F7FF]/60 uppercase tracking-wider">
+            <span className="hidden sm:inline">{day}</span>
+            <span className="sm:hidden">{day.charAt(0)}</span>
           </div>
         ))}
       </div>
