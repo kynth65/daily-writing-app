@@ -81,7 +81,7 @@ export function EntryPreview({ entries, selectedDate, isOpen, onClose, onDelete 
           <div className="flex items-center gap-3">
             <Calendar size={20} className="text-blue-500" />
             <div>
-              <h2 className="font-semibold text-lg">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</h2>
+              <h2 className="font-normal text-lg">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</h2>
               {hasMultipleEntries && (
                 <p className="text-sm text-gray-600">
                   Entry {currentIndex + 1} of {entries.length}

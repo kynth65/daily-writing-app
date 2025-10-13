@@ -39,14 +39,14 @@ export default function StreakDisplay({
             />
           </div>
           <div>
-            <h3 className="text-sm font-medium text-gray-500">Current Streak</h3>
+            <h3 className="text-sm font-normal text-gray-500">Current Streak</h3>
             {isAtRisk && (
-              <p className="text-xs text-orange-600 font-medium">At risk!</p>
+              <p className="text-xs text-orange-600 font-normal">At risk!</p>
             )}
           </div>
         </div>
 
-        <p className="text-4xl font-bold mb-2">{currentStreak}</p>
+        <p className="text-4xl font-normal mb-2">{currentStreak}</p>
         <p className="text-sm text-gray-600">
           {currentStreak === 0
             ? 'Start your streak today!'
@@ -70,10 +70,10 @@ export default function StreakDisplay({
           <div className="p-2 rounded-lg bg-yellow-50">
             <Trophy size={24} className="text-yellow-500" />
           </div>
-          <h3 className="text-sm font-medium text-gray-500">Longest Streak</h3>
+          <h3 className="text-sm font-normal text-gray-500">Longest Streak</h3>
         </div>
 
-        <p className="text-4xl font-bold mb-2">{longestStreak}</p>
+        <p className="text-4xl font-normal mb-2">{longestStreak}</p>
         <p className="text-sm text-gray-600">
           {longestStreak === 0
             ? 'Set your first record!'
