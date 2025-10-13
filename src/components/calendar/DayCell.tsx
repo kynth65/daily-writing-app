@@ -42,7 +42,7 @@ export function DayCell({
       {/* Day number */}
       <div
         className={cn(
-          'text-sm font-medium mb-1',
+          'text-sm font-normal mb-1',
           isCurrentDay && 'inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white'
         )}
       >
@@ -53,7 +53,7 @@ export function DayCell({
       {hasEntry && currentMonth && (
         <div className="absolute bottom-2 left-2 right-2">
           <div className="flex items-center justify-between text-xs">
-            <span className="flex items-center gap-1 text-blue-600 font-medium">
+            <span className="flex items-center gap-1 text-blue-600 font-normal">
               <svg
                 className="w-3 h-3"
                 fill="currentColor"
@@ -76,7 +76,7 @@ export function DayCell({
       {/* Hover tooltip - shown with CSS */}
       {hasEntry && contentPreview && (
         <div className="absolute z-10 invisible group-hover:visible bottom-full left-0 mb-2 p-2 bg-gray-900 text-white text-xs rounded shadow-lg w-48 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          <div className="font-semibold mb-1">{wordCount} words</div>
+          <div className="font-normal mb-1">{wordCount} words</div>
           <div className="line-clamp-3">{contentPreview}</div>
         </div>
       )}
