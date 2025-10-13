@@ -10,7 +10,11 @@
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.75.0",
+    "@tiptap/extension-placeholder": "^3.6.6",
+    "@tiptap/react": "^3.6.6",
+    "@tiptap/starter-kit": "^3.6.6",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.545.0",
     "next": "15.5.4",
