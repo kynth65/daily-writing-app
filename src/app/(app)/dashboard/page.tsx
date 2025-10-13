@@ -1,12 +1,35 @@
-import { createClient } from '@/lib/supabase/server'
+'use client'
+
 import Link from 'next/link'
 import { PenTool, Flame, BookOpen, Award, TrendingUp } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import type { UserStats } from '@/lib/stats'
 
-export default async function DashboardPage() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+export default function DashboardPage() {
+  const [stats, setStats] = useState<UserStats | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const response = await fetch('/api/stats?type=overview')
+        if (response.ok) {
+          const data = await response.json()
+          setStats(data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch stats:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchStats()
+  }, [])
+
+  const formatNumber = (num: number) => {
+    return num.toLocaleString()
+  }
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -28,7 +51,9 @@ export default async function DashboardPage() {
             </div>
           </div>
           <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Current Streak</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span></p>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : stats?.currentStreak || 0} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span>
+          </p>
           <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Keep writing daily</p>
         </div>
 
@@ -40,8 +65,12 @@ export default async function DashboardPage() {
             </div>
           </div>
           <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Entries</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">posts</span></p>
-          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Start your journey</p>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : formatNumber(stats?.totalEntries || 0)} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">posts</span>
+          </p>
+          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">
+            {stats?.totalEntries === 0 ? 'Start your journey' : 'Great progress!'}
+          </p>
         </div>
 
         {/* Total Words Card */}
@@ -52,7 +81,9 @@ export default async function DashboardPage() {
             </div>
           </div>
           <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Words</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">words</span></p>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : formatNumber(stats?.totalWords || 0)} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">words</span>
+          </p>
           <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Every word counts</p>
         </div>
 
@@ -64,7 +95,9 @@ export default async function DashboardPage() {
             </div>
           </div>
           <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Best Streak</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">0 <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span></p>
+          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : stats?.longestStreak || 0} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span>
+          </p>
           <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Beat your record</p>
         </div>
       </div>

@@ -1,6 +1,36 @@
-import { BarChart3, TrendingUp, Calendar, Award, Target, Zap } from 'lucide-react'
+'use client'
+
+import { TrendingUp, Calendar, Award, Zap, Flame, BookOpen, PenTool } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import StatCard from '@/components/stats/StatCard'
+import type { UserStats } from '@/lib/stats'
 
 export default function StatsPage() {
+  const [stats, setStats] = useState<UserStats | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const response = await fetch('/api/stats?type=overview')
+        if (response.ok) {
+          const data = await response.json()
+          setStats(data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch stats:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchStats()
+  }, [])
+
+  const formatNumber = (num: number) => {
+    return num.toLocaleString()
+  }
+
   return (
     <div className="max-w-6xl mx-auto">
       {/* Header */}
@@ -11,78 +41,129 @@ export default function StatsPage() {
         <p className="text-lg text-[#F7F7FF]/70">Track your progress and analyze your writing habits</p>
       </div>
 
-      {/* Main Card */}
-      <div className="border border-[#F7F7FF]/10 rounded-lg p-12">
-        {/* Content */}
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 border border-[#F7F7FF]/20 rounded-lg mb-6">
-            <BarChart3 size={32} className="text-[#F7F7FF]" />
-          </div>
-
-          <h2 className="text-2xl font-normal text-[#F7F7FF] mb-4">Advanced Analytics Coming Soon</h2>
-          <p className="text-lg text-[#F7F7FF]/70 mb-12 max-w-2xl mx-auto">
-            We&apos;re building powerful insights to help you understand your writing patterns.
-          </p>
-
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-              <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <TrendingUp size={20} className="text-[#F7F7FF]" />
-              </div>
-              <h3 className="font-normal text-[#F7F7FF] mb-2">Writing Trends</h3>
-              <p className="text-sm text-[#F7F7FF]/70">Track words written over time</p>
-            </div>
-
-            <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-              <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <Calendar size={20} className="text-[#F7F7FF]" />
-              </div>
-              <h3 className="font-normal text-[#F7F7FF] mb-2">Frequency Heatmap</h3>
-              <p className="text-sm text-[#F7F7FF]/70">Visualize writing patterns</p>
-            </div>
-
-            <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-              <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <Target size={20} className="text-[#F7F7FF]" />
-              </div>
-              <h3 className="font-normal text-[#F7F7FF] mb-2">Goal Tracking</h3>
-              <p className="text-sm text-[#F7F7FF]/70">Set and monitor goals</p>
-            </div>
-
-            <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-              <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <Award size={20} className="text-[#F7F7FF]" />
-              </div>
-              <h3 className="font-normal text-[#F7F7FF] mb-2">Best Days</h3>
-              <p className="text-sm text-[#F7F7FF]/70">Discover your best work</p>
-            </div>
-
-            <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-              <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <BarChart3 size={20} className="text-[#F7F7FF]" />
-              </div>
-              <h3 className="font-normal text-[#F7F7FF] mb-2">Progress Reports</h3>
-              <p className="text-sm text-[#F7F7FF]/70">Monthly summaries</p>
-            </div>
-
-            <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
-              <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <Zap size={20} className="text-[#F7F7FF]" />
-              </div>
-              <h3 className="font-normal text-[#F7F7FF] mb-2">Productivity Insights</h3>
-              <p className="text-sm text-[#F7F7FF]/70">Improve your workflow</p>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="pt-6">
-            <div className="inline-flex items-center gap-2 px-6 py-3 border border-[#F7F7FF]/20 text-[#F7F7FF] rounded-lg">
-              <span className="font-normal">In Active Development</span>
-            </div>
-          </div>
+      {loading ? (
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-12 text-center">
+          <p className="text-[#F7F7FF]/70">Loading your statistics...</p>
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Overview Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <StatCard
+              title="Current Streak"
+              value={stats?.currentStreak || 0}
+              subtitle="consecutive days"
+              icon={Flame}
+            />
+            <StatCard
+              title="Longest Streak"
+              value={stats?.longestStreak || 0}
+              subtitle="days in a row"
+              icon={Award}
+            />
+            <StatCard
+              title="Total Entries"
+              value={formatNumber(stats?.totalEntries || 0)}
+              subtitle="journal entries"
+              icon={BookOpen}
+            />
+            <StatCard
+              title="Total Words"
+              value={formatNumber(stats?.totalWords || 0)}
+              subtitle="words written"
+              icon={PenTool}
+            />
+          </div>
+
+          {/* Detailed Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            {/* Writing Habits */}
+            <div className="border border-[#F7F7FF]/10 rounded-lg p-6">
+              <h2 className="text-xl font-normal text-[#F7F7FF] mb-6 flex items-center gap-2">
+                <TrendingUp size={24} />
+                Writing Habits
+              </h2>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
+                  <span className="text-[#F7F7FF]/70">Average Words per Entry</span>
+                  <span className="text-[#F7F7FF] text-lg">{formatNumber(stats?.averageWords || 0)}</span>
+                </div>
+                <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
+                  <span className="text-[#F7F7FF]/70">Writing Frequency</span>
+                  <span className="text-[#F7F7FF] text-lg">{stats?.writingFrequency || 0} entries/week</span>
+                </div>
+                <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
+                  <span className="text-[#F7F7FF]/70">Best Writing Day</span>
+                  <span className="text-[#F7F7FF] text-lg">{stats?.bestWritingDay || 'N/A'}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Activity */}
+            <div className="border border-[#F7F7FF]/10 rounded-lg p-6">
+              <h2 className="text-xl font-normal text-[#F7F7FF] mb-6 flex items-center gap-2">
+                <Calendar size={24} />
+                Recent Activity
+              </h2>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
+                  <span className="text-[#F7F7FF]/70">This Week</span>
+                  <span className="text-[#F7F7FF] text-lg">{stats?.entriesThisWeek || 0} entries</span>
+                </div>
+                <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
+                  <span className="text-[#F7F7FF]/70">Words This Week</span>
+                  <span className="text-[#F7F7FF] text-lg">{formatNumber(stats?.wordsThisWeek || 0)}</span>
+                </div>
+                <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
+                  <span className="text-[#F7F7FF]/70">This Month</span>
+                  <span className="text-[#F7F7FF] text-lg">{stats?.entriesThisMonth || 0} entries</span>
+                </div>
+                <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
+                  <span className="text-[#F7F7FF]/70">Words This Month</span>
+                  <span className="text-[#F7F7FF] text-lg">{formatNumber(stats?.wordsThisMonth || 0)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Insights & Motivation */}
+          <div className="border border-[#F7F7FF]/10 rounded-lg p-8">
+            <h2 className="text-2xl font-normal text-[#F7F7FF] mb-4 flex items-center gap-2">
+              <Zap size={24} />
+              Your Progress
+            </h2>
+            <div className="space-y-4">
+              {stats?.totalEntries === 0 ? (
+                <p className="text-[#F7F7FF]/70 text-lg">
+                  Start your writing journey today! Create your first entry and begin building a consistent writing habit.
+                </p>
+              ) : (
+                <>
+                  <p className="text-[#F7F7FF]/70 text-lg">
+                    Great work! You have written <span className="text-[#F7F7FF]">{formatNumber(stats?.totalWords || 0)} words</span> across{' '}
+                    <span className="text-[#F7F7FF]">{stats?.totalEntries} entries</span>.
+                  </p>
+                  {(stats?.currentStreak ?? 0) > 0 && (
+                    <p className="text-[#F7F7FF]/70 text-lg">
+                      You are on a <span className="text-[#F7F7FF]">{stats?.currentStreak}-day streak</span>! Keep writing to maintain your momentum.
+                    </p>
+                  )}
+                  {stats?.currentStreak === 0 && (stats?.longestStreak ?? 0) > 0 && (
+                    <p className="text-[#F7F7FF]/70 text-lg">
+                      Your longest streak is <span className="text-[#F7F7FF]">{stats?.longestStreak} days</span>. Start writing again to build a new streak!
+                    </p>
+                  )}
+                  {stats?.bestWritingDay && (
+                    <p className="text-[#F7F7FF]/70 text-lg">
+                      You write most consistently on <span className="text-[#F7F7FF]">{stats.bestWritingDay}s</span>. Consider making this your dedicated writing day!
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
