@@ -1,23 +1,30 @@
 import Link from 'next/link'
-import { PenTool, Calendar, TrendingUp } from 'lucide-react'
+import { PenTool, TrendingUp, Target } from 'lucide-react'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-[#3A4F41]">
       {/* Header */}
       <header className="container mx-auto px-4 py-6">
         <nav className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-blue-600">Daily Writer</div>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <PenTool className="text-[#F7F7FF]" size={20} />
+            </div>
+            <span className="text-2xl font-normal text-[#F7F7FF]">
+              Daily Writer
+            </span>
+          </div>
+          <div className="flex gap-3">
             <Link
               href="/login"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors cursor-pointer"
+              className="px-5 py-2.5 text-[#F7F7FF] hover:text-[#F7F7FF]/80 transition-all duration-200 font-normal cursor-pointer"
             >
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer"
+              className="px-6 py-2.5 border border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal cursor-pointer"
             >
               Get Started
             </Link>
@@ -26,26 +33,26 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <main className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto text-center mb-20">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
-            Build Your Daily
-            <span className="text-blue-600"> Writing Habit</span>
+      <main className="container mx-auto px-4 py-16 md:py-24">
+        <div className="max-w-4xl mx-auto text-center mb-24">
+          <h1 className="text-5xl md:text-7xl font-normal mb-8 leading-tight text-[#F7F7FF]">
+            Build Your Daily Writing Ritual
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Transform your thoughts into words with a simple, distraction-free daily writing
-            practice. Track your progress, maintain streaks, and grow as a writer.
+
+          <p className="text-xl md:text-2xl text-[#F7F7FF]/70 mb-12 max-w-3xl mx-auto leading-relaxed">
+            A distraction-free writing space to transform your thoughts into words.
           </p>
-          <div className="flex gap-4 justify-center">
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/signup"
-              className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-lg cursor-pointer"
+              className="px-8 py-4 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal text-lg cursor-pointer"
             >
               Start Writing Free
             </Link>
             <Link
               href="/login"
-              className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 transition-colors font-medium text-lg cursor-pointer"
+              className="px-8 py-4 border border-[#F7F7FF]/30 text-[#F7F7FF] rounded-lg hover:border-[#F7F7FF]/50 hover:bg-[#F7F7FF]/5 transition-all duration-200 font-normal text-lg cursor-pointer"
             >
               Sign In
             </Link>
@@ -53,92 +60,89 @@ export default function Home() {
         </div>
 
         {/* Features */}
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-20">
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-              <PenTool className="text-blue-600" size={24} />
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 mb-32">
+          <div className="border border-[#F7F7FF]/10 p-8 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
+            <div className="w-12 h-12 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-6">
+              <PenTool className="text-[#F7F7FF]" size={20} />
             </div>
-            <h3 className="text-xl font-semibold mb-3">Daily Writing Prompts</h3>
-            <p className="text-gray-600">
-              Get inspired with thoughtful prompts each day to help you start writing and explore
-              new ideas.
+            <h3 className="text-xl font-normal mb-4 text-[#F7F7FF]">Daily Prompts</h3>
+            <p className="text-[#F7F7FF]/70 leading-relaxed">
+              Thoughtful prompts to spark creativity and overcome writer&apos;s block.
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <Calendar className="text-purple-600" size={24} />
+          <div className="border border-[#F7F7FF]/10 p-8 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
+            <div className="w-12 h-12 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-6">
+              <Target className="text-[#F7F7FF]" size={20} />
             </div>
-            <h3 className="text-xl font-semibold mb-3">Streak Tracking</h3>
-            <p className="text-gray-600">
-              Build momentum with visual streak tracking that motivates you to write every single
-              day.
+            <h3 className="text-xl font-normal mb-4 text-[#F7F7FF]">Streak Tracking</h3>
+            <p className="text-[#F7F7FF]/70 leading-relaxed">
+              Build momentum and stay motivated with visual streak tracking.
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-              <TrendingUp className="text-green-600" size={24} />
+          <div className="border border-[#F7F7FF]/10 p-8 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-200">
+            <div className="w-12 h-12 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center mb-6">
+              <TrendingUp className="text-[#F7F7FF]" size={20} />
             </div>
-            <h3 className="text-xl font-semibold mb-3">Progress Analytics</h3>
-            <p className="text-gray-600">
-              Track your word count, writing frequency, and growth over time with detailed
-              statistics.
+            <h3 className="text-xl font-normal mb-4 text-[#F7F7FF]">Analytics</h3>
+            <p className="text-[#F7F7FF]/70 leading-relaxed">
+              Track your word count and writing frequency over time.
             </p>
           </div>
         </div>
 
         {/* How It Works */}
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 p-12 mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-          <div className="space-y-8">
-            <div className="flex gap-6 items-start">
-              <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+        <div className="max-w-5xl mx-auto border border-[#F7F7FF]/10 rounded-lg p-12 md:p-16 mb-32">
+          <h2 className="text-3xl md:text-4xl font-normal text-center mb-4 text-[#F7F7FF]">
+            How It Works
+          </h2>
+          <p className="text-center text-[#F7F7FF]/70 mb-16 text-lg">Simple steps to build your writing habit</p>
+
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-14 h-14 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg flex items-center justify-center font-normal text-xl mb-6">
                 1
               </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Sign Up Free</h3>
-                <p className="text-gray-600">
-                  Create your account in seconds. No credit card required.
-                </p>
-              </div>
+              <h3 className="text-lg font-normal mb-3 text-[#F7F7FF]">Sign Up Free</h3>
+              <p className="text-[#F7F7FF]/70 leading-relaxed">
+                Create your account in seconds. Start writing immediately.
+              </p>
             </div>
 
-            <div className="flex gap-6 items-start">
-              <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-14 h-14 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg flex items-center justify-center font-normal text-xl mb-6">
                 2
               </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Write Daily</h3>
-                <p className="text-gray-600">
-                  Use our distraction-free editor with daily prompts to guide your writing.
-                </p>
-              </div>
+              <h3 className="text-lg font-normal mb-3 text-[#F7F7FF]">Write Daily</h3>
+              <p className="text-[#F7F7FF]/70 leading-relaxed">
+                Use our distraction-free editor with daily prompts.
+              </p>
             </div>
 
-            <div className="flex gap-6 items-start">
-              <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-14 h-14 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg flex items-center justify-center font-normal text-xl mb-6">
                 3
               </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Track Progress</h3>
-                <p className="text-gray-600">
-                  Watch your streaks grow and analyze your writing habits over time.
-                </p>
-              </div>
+              <h3 className="text-lg font-normal mb-3 text-[#F7F7FF]">Track Progress</h3>
+              <p className="text-[#F7F7FF]/70 leading-relaxed">
+                Watch your streaks grow and gain insights.
+              </p>
             </div>
           </div>
         </div>
 
         {/* CTA */}
-        <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-12 text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to Start Your Writing Journey?</h2>
-          <p className="text-xl mb-8 text-blue-100">
-            Join writers who are building a consistent daily writing practice.
+        <div className="max-w-5xl mx-auto text-center border border-[#F7F7FF]/10 rounded-lg p-16 md:p-20">
+          <h2 className="text-3xl md:text-4xl font-normal mb-6 text-[#F7F7FF]">
+            Ready to Start Writing?
+          </h2>
+          <p className="text-lg md:text-xl mb-10 text-[#F7F7FF]/70 max-w-2xl mx-auto">
+            Build a consistent daily writing practice.
           </p>
           <Link
             href="/signup"
-            className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg cursor-pointer"
+            className="inline-flex items-center gap-2 px-10 py-4 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal text-lg cursor-pointer"
           >
             Get Started Free
           </Link>
@@ -146,9 +150,24 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 mt-20 border-t border-gray-200">
-        <div className="text-center text-gray-600">
-          <p>© 2025 Daily Writer. Build your writing habit, one day at a time.</p>
+      <footer className="container mx-auto px-4 py-12 mt-32 border-t border-[#F7F7FF]/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col items-center justify-center gap-4 mb-8">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+                <PenTool className="text-[#F7F7FF]" size={16} />
+              </div>
+              <span className="text-xl font-normal text-[#F7F7FF]">
+                Daily Writer
+              </span>
+            </div>
+            <p className="text-[#F7F7FF]/70 text-center max-w-md">
+              Build your writing habit, one day at a time.
+            </p>
+          </div>
+          <div className="pt-8 text-center text-[#F7F7FF]/50 text-sm">
+            <p>© 2025 Daily Writer</p>
+          </div>
         </div>
       </footer>
     </div>
