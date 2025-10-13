@@ -47,39 +47,44 @@ export default function DashboardNav() {
       {/* Mobile menu button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+        className="lg:hidden fixed top-6 left-6 z-50 p-3 bg-[#3A4F41] border border-[#F7F7FF]/10 rounded-lg hover:border-[#F7F7FF]/20 transition-all duration-300 cursor-pointer"
         aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
       >
         {mobileMenuOpen ? (
-          <X size={24} className="text-gray-700 dark:text-gray-200" />
+          <X size={24} className="text-[#F7F7FF]" />
         ) : (
-          <Menu size={24} className="text-gray-700 dark:text-gray-200" />
+          <Menu size={24} className="text-[#F7F7FF]" />
         )}
       </button>
 
       {/* Sidebar */}
       <aside
         className={`
-          fixed left-0 top-0 h-full w-64 sm:w-72 bg-white dark:bg-gray-800
-          border-r border-gray-200 dark:border-gray-700
-          p-4 sm:p-6 flex flex-col
-          transform transition-transform duration-300 ease-in-out z-40
+          fixed left-0 top-0 h-full w-72 sm:w-80
+          bg-[#3A4F41] border-r border-[#F7F7FF]/10
+          p-6 sm:p-8 flex flex-col
+          transform transition-all duration-500 ease-out z-40
           ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           overflow-y-auto
         `}
       >
         {/* Logo */}
-        <div className="mb-6 sm:mb-8 pt-2 lg:pt-0">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-            Daily Writer
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+        <div className="mb-10 pt-2 lg:pt-0">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <PenTool size={20} className="text-[#F7F7FF]" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-normal text-[#F7F7FF]">
+              Daily Writer
+            </h1>
+          </div>
+          <p className="text-sm text-[#F7F7FF]/70 ml-[52px]">
             Build your writing habit
           </p>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-1 sm:space-y-2">
+        <nav className="flex-1 space-y-2 sm:space-y-3">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
@@ -90,39 +95,40 @@ export default function DashboardNav() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`
-                  flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg
-                  transition-all duration-200 cursor-pointer
+                  flex items-center gap-4 px-4 sm:px-5 py-3.5 sm:py-4 rounded-lg
+                  transition-all duration-200 cursor-pointer border
                   ${isActive
-                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                    ? 'bg-[#F7F7FF]/10 border-[#F7F7FF]/20 text-[#F7F7FF]'
+                    : 'border-transparent text-[#F7F7FF]/70 hover:bg-[#F7F7FF]/5 hover:border-[#F7F7FF]/10'
                   }
                 `}
               >
                 <Icon size={20} className="flex-shrink-0" />
-                <span className="font-medium text-sm sm:text-base">{item.label}</span>
+                <span className="font-normal text-base">{item.label}</span>
               </Link>
             )
           })}
         </nav>
 
+        {/* Divider */}
+        <div className="my-6 h-px bg-[#F7F7FF]/10" />
+
         {/* Logout button */}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg
-                     text-gray-700 dark:text-gray-300
-                     hover:bg-red-50 dark:hover:bg-red-900/20
-                     hover:text-red-600 dark:hover:text-red-400
-                     transition-all duration-200 w-full mt-2 cursor-pointer"
+          className="flex items-center gap-4 px-4 sm:px-5 py-3.5 sm:py-4 rounded-lg
+                     border border-transparent text-[#F7F7FF]/70 hover:bg-[#F7F7FF]/5 hover:border-[#F7F7FF]/10 hover:text-[#F7F7FF]
+                     transition-all duration-200 w-full cursor-pointer"
         >
           <LogOut size={20} className="flex-shrink-0" />
-          <span className="font-medium text-sm sm:text-base">Logout</span>
+          <span className="font-normal text-base">Logout</span>
         </button>
       </aside>
 
       {/* Mobile overlay */}
       {mobileMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-30 transition-opacity duration-300"
+          className="lg:hidden fixed inset-0 bg-black/60 z-30 transition-all duration-500"
           onClick={() => setMobileMenuOpen(false)}
           aria-hidden="true"
         />
