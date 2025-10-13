@@ -1,203 +1,167 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useCallback } from 'react'
-import TipTapEditor from '@/components/editor/TipTapEditor'
-import { useAutosave } from '@/hooks/useAutosave'
-import { getTodayPrompt } from '@/lib/prompts'
-import { format } from 'date-fns'
-import { CheckCircle2, AlertCircle, Loader2, Sparkles, Save } from 'lucide-react'
+import { useState, useCallback } from "react";
+import TipTapEditor from "@/components/editor/TipTapEditor";
+import { getTodayPrompt } from "@/lib/prompts";
+import { format } from "date-fns";
+import { CheckCircle2, AlertCircle, Loader2, Sparkles, X, Save } from "lucide-react";
 
 export default function WritePage() {
-  const [content, setContent] = useState('')
-  const [entryId, setEntryId] = useState<string | null>(null)
-  const [todayPrompt] = useState(() => getTodayPrompt())
-  const [showPrompt, setShowPrompt] = useState(true)
-  const [isSaving, setIsSaving] = useState(false)
-  const today = format(new Date(), 'yyyy-MM-dd')
+  const [content, setContent] = useState("");
+  const [todayPrompt] = useState(() => getTodayPrompt());
+  const [showPrompt, setShowPrompt] = useState(true);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const today = format(new Date(), "yyyy-MM-dd");
 
-  // Fetch today's entry if it exists
-  useEffect(() => {
-    const fetchTodayEntry = async () => {
-      try {
-        const response = await fetch(`/api/entries?date=${today}`)
-        if (response.ok) {
-          const entries = await response.json()
-          if (entries.length > 0) {
-            setContent(entries[0].content)
-            setEntryId(entries[0].id)
-          }
-        }
-      } catch (error) {
-        // Silently handle error - entry might not exist yet
-      }
+  const handleSave = useCallback(async () => {
+    if (!content || content.trim() === '' || content === '<p></p>') {
+      return;
     }
 
-    fetchTodayEntry()
-  }, [today])
+    setSaveStatus('saving');
 
-  const saveEntry = useCallback(
-    async (contentToSave: string) => {
-      try {
-        if (entryId) {
-          // Update existing entry
-          const response = await fetch(`/api/entries/${entryId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: contentToSave }),
-          })
+    try {
+      // Always create new entry
+      const response = await fetch("/api/entries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content, date: today }),
+      });
 
-          if (!response.ok) {
-            throw new Error('Failed to update entry')
-          }
-        } else {
-          // Create new entry
-          const response = await fetch('/api/entries', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: contentToSave, date: today }),
-          })
-
-          if (!response.ok) {
-            throw new Error('Failed to create entry')
-          }
-
-          const data = await response.json()
-          setEntryId(data.id)
-        }
-      } catch (error) {
-        console.error('Error saving entry:', error)
-        throw error
+      if (!response.ok) {
+        throw new Error("Failed to save entry");
       }
-    },
-    [entryId, today]
-  )
 
-  const { status } = useAutosave({
-    content,
-    onSave: saveEntry,
-    delay: 3000,
-  })
+      setSaveStatus('saved');
+
+      // Clear the editor after successful save
+      setContent("");
+
+      // Reset status after 3 seconds
+      setTimeout(() => {
+        setSaveStatus('idle');
+      }, 3000);
+    } catch (error) {
+      console.error("Error saving entry:", error);
+      setSaveStatus('error');
+
+      // Reset error status after 3 seconds
+      setTimeout(() => {
+        setSaveStatus('idle');
+      }, 3000);
+    }
+  }, [content, today]);
 
   const handleContentChange = (newContent: string) => {
-    setContent(newContent)
-  }
-
-  const handleManualSave = async () => {
-    if (!content.trim()) {
-      return // Don't save empty content
-    }
-
-    setIsSaving(true)
-    try {
-      await saveEntry(content)
-      // Clear the content after successful save
-      setContent('')
-      setEntryId(null)
-    } catch (error) {
-      console.error('Failed to save entry:', error)
-    } finally {
-      setIsSaving(false)
-    }
-  }
+    setContent(newContent);
+  };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h1 className="text-3xl font-bold">Today&apos;s Entry</h1>
-          <div className="flex items-center gap-2 text-sm">
-            {status === 'saved' && (
-              <span className="flex items-center gap-1 text-green-600">
-                <CheckCircle2 size={16} />
-                Saved
-              </span>
-            )}
-            {status === 'saving' && (
-              <span className="flex items-center gap-1 text-blue-600">
-                <Loader2 size={16} className="animate-spin" />
-                Saving...
-              </span>
-            )}
-            {status === 'error' && (
-              <span className="flex items-center gap-1 text-red-600">
-                <AlertCircle size={16} />
-                Error saving
-              </span>
-            )}
+    <div className="relative min-h-screen -mt-8 -mx-8 bg-[#3A4F41]">
+      {/* Floating Status Indicator */}
+      <div className="fixed top-8 right-8 z-20">
+        {saveStatus === "saved" && (
+          <div className="flex items-center gap-2 px-4 py-2 border border-[#F7F7FF]/20 rounded-lg text-[#F7F7FF] text-sm font-normal bg-[#3A4F41]">
+            <CheckCircle2 size={14} />
+            <span>Saved</span>
           </div>
-        </div>
-        <p className="text-gray-600">{format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
+        )}
+        {saveStatus === "saving" && (
+          <div className="flex items-center gap-2 px-4 py-2 bg-[#3A4F41] border border-[#F7F7FF]/20 rounded-lg text-[#F7F7FF] text-sm font-normal">
+            <Loader2 size={14} className="animate-spin" />
+            <span>Saving...</span>
+          </div>
+        )}
+        {saveStatus === "error" && (
+          <div className="flex items-center gap-2 px-4 py-2 bg-[#3A4F41] border border-[#F7F7FF]/20 rounded-lg text-[#F7F7FF] text-sm font-normal">
+            <AlertCircle size={14} />
+            <span>Failed to save</span>
+          </div>
+        )}
       </div>
 
-      {/* Daily Prompt */}
-      {showPrompt && (
-        <div className="mb-6 p-6 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-100">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <Sparkles size={20} className="text-purple-600" />
-                <h3 className="font-semibold text-purple-900">Today&apos;s Prompt</h3>
+      {/* Main Editor Container */}
+      <div className="max-w-4xl mx-auto px-8 py-16">
+        {/* Subtle date header */}
+        <div className="text-center mb-8">
+          <p className="text-sm font-normal text-[#F7F7FF]/50 tracking-wide uppercase mb-2">
+            {format(new Date(), "EEEE")}
+          </p>
+          <h1 className="text-3xl font-light text-[#F7F7FF]">
+            {format(new Date(), "MMMM d, yyyy")}
+          </h1>
+        </div>
+
+        {/* Today's Writing Prompt - Simple Note */}
+        {showPrompt && (
+          <div className="mb-8 p-6 border border-[#F7F7FF]/20 rounded-lg bg-[#3A4F41]">
+            <div className="flex items-start gap-3">
+              <Sparkles
+                size={20}
+                className="text-[#F7F7FF]/70 mt-0.5 flex-shrink-0"
+              />
+              <div className="flex-1">
+                <p className="text-sm font-normal text-[#F7F7FF]/50 mb-2">
+                  Today&apos;s Writing Prompt
+                </p>
+                <p className="text-base text-[#F7F7FF]/80 leading-relaxed">
+                  {todayPrompt.prompt}
+                </p>
               </div>
-              <p className="text-gray-700">{todayPrompt.prompt}</p>
-              <span className="inline-block mt-2 px-3 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full capitalize">
-                {todayPrompt.category}
-              </span>
+              <button
+                onClick={() => setShowPrompt(false)}
+                className="p-1 text-[#F7F7FF]/40 hover:text-[#F7F7FF]/70 transition-colors cursor-pointer flex-shrink-0"
+                aria-label="Dismiss prompt"
+              >
+                <X size={16} />
+              </button>
             </div>
+          </div>
+        )}
+
+        {/* Editor */}
+        <div>
+          <TipTapEditor
+            content={content}
+            onChange={handleContentChange}
+            placeholder="Begin writing..."
+          />
+        </div>
+
+        {/* Save Button */}
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={handleSave}
+            disabled={saveStatus === 'saving' || !content || content.trim() === '' || content === '<p></p>'}
+            className="flex items-center gap-2 px-8 py-3 text-base font-normal text-[#F7F7FF] bg-[#3A4F41] border border-[#F7F7FF]/20 hover:bg-[#F7F7FF]/5 hover:border-[#F7F7FF]/30 rounded-lg transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#3A4F41] disabled:hover:border-[#F7F7FF]/20"
+          >
+            {saveStatus === 'saving' ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                <span>Saving...</span>
+              </>
+            ) : (
+              <>
+                <Save size={18} />
+                <span>Save Entry</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Show prompt button */}
+        {!showPrompt && (
+          <div className="flex justify-center mt-12">
             <button
-              onClick={() => setShowPrompt(false)}
-              className="text-gray-400 hover:text-gray-600 ml-4 cursor-pointer"
+              onClick={() => setShowPrompt(true)}
+              className="flex items-center gap-2 px-6 py-3 text-sm font-normal text-[#F7F7FF]/70 hover:text-[#F7F7FF] bg-[#3A4F41] border border-[#F7F7FF]/10 hover:bg-[#F7F7FF]/5 hover:border-[#F7F7FF]/20 rounded-lg transition-all duration-200 cursor-pointer"
             >
-              ×
+              <Sparkles size={16} />
+              <span>View today&apos;s prompt</span>
             </button>
           </div>
-        </div>
-      )}
-
-      {!showPrompt && (
-        <button
-          onClick={() => setShowPrompt(true)}
-          className="mb-6 text-sm text-purple-600 hover:text-purple-700 flex items-center gap-1 cursor-pointer"
-        >
-          <Sparkles size={16} />
-          Show today&apos;s prompt
-        </button>
-      )}
-
-      {/* Editor */}
-      <TipTapEditor
-        content={content}
-        onChange={handleContentChange}
-        placeholder="Start writing your thoughts..."
-      />
-
-      {/* Manual Save Button */}
-      <div className="mt-6 flex justify-end">
-        <button
-          onClick={handleManualSave}
-          disabled={isSaving || !content.trim()}
-          className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
-        >
-          {isSaving ? (
-            <>
-              <Loader2 size={20} className="animate-spin" />
-              Saving...
-            </>
-          ) : (
-            <>
-              <Save size={20} />
-              Save Entry
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Tips */}
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
-        <p className="text-sm text-blue-900">
-          <strong>Tip:</strong> Your entry is automatically saved as you write. Click the Save Entry button to save and clear the editor for a fresh start!
-        </p>
+        )}
       </div>
     </div>
-  )
+  );
 }

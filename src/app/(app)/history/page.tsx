@@ -100,87 +100,130 @@ export default function HistoryPage() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Writing History</h1>
-        <p className="text-gray-600">View your past entries and writing journey</p>
+      {/* Header */}
+      <div className="mb-10">
+        <h1 className="text-3xl font-normal text-[#F7F7FF] mb-2">
+          Writing History
+        </h1>
+        <p className="text-lg text-[#F7F7FF]/70">View your past entries and writing journey</p>
       </div>
 
-      {/* Stats bar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <div className="text-sm text-gray-600 mb-1">This Month</div>
-          <div className="text-2xl font-bold">{totalEntries} entries</div>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <div className="text-sm text-gray-600 mb-1">Total Words</div>
-          <div className="text-2xl font-bold">{totalWords.toLocaleString()}</div>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <div className="text-sm text-gray-600 mb-1">Average</div>
-          <div className="text-2xl font-bold">
-            {totalEntries > 0 ? Math.round(totalWords / totalEntries) : 0} words/entry
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <Calendar size={20} className="text-[#F7F7FF]" />
+            </div>
+            <div className="text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">This Month</div>
           </div>
+          <div className="text-4xl font-normal text-[#F7F7FF]">{totalEntries}</div>
+          <div className="text-sm text-[#F7F7FF]/70 mt-1">{totalEntries === 1 ? 'entry' : 'entries'}</div>
+        </div>
+
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-[#F7F7FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+              </svg>
+            </div>
+            <div className="text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">Total Words</div>
+          </div>
+          <div className="text-4xl font-normal text-[#F7F7FF]">{totalWords.toLocaleString()}</div>
+          <div className="text-sm text-[#F7F7FF]/70 mt-1">words written</div>
+        </div>
+
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-6 hover:border-[#F7F7FF]/20 transition-all duration-200">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-[#F7F7FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <div className="text-sm font-normal text-[#F7F7FF]/70 uppercase tracking-wide">Average</div>
+          </div>
+          <div className="text-4xl font-normal text-[#F7F7FF]">
+            {totalEntries > 0 ? Math.round(totalWords / totalEntries) : 0}
+          </div>
+          <div className="text-sm text-[#F7F7FF]/70 mt-1">words per entry</div>
         </div>
       </div>
 
-      {/* Search bar */}
-      <div className="mb-6">
+      {/* Search Bar */}
+      <div className="mb-8">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#F7F7FF]/50" size={20} />
           <input
             type="text"
             placeholder="Search entries by content..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-12 pr-4 py-4 bg-[#3A4F41] border border-[#F7F7FF]/10 rounded-lg focus:outline-none focus:border-[#F7F7FF]/30 transition-all text-[#F7F7FF] placeholder-[#F7F7FF]/50"
           />
         </div>
       </div>
 
-      {/* Loading state */}
+      {/* Loading State */}
       {isLoading && (
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="animate-spin text-blue-500" size={32} />
+        <div className="flex flex-col items-center justify-center py-20">
+          <Loader2 className="animate-spin text-[#F7F7FF] mb-4" size={40} />
+          <p className="text-[#F7F7FF]/70 font-normal">Loading your history...</p>
         </div>
       )}
 
-      {/* Error state */}
+      {/* Error State */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-          <p className="text-red-600">{error}</p>
-          <button
-            onClick={fetchEntries}
-            className="mt-2 text-sm text-red-700 underline hover:no-underline"
-          >
-            Try again
-          </button>
+        <div className="border border-[#F7F7FF]/20 rounded-lg p-6 mb-8">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 text-[#F7F7FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-[#F7F7FF] font-normal mb-1">Oops! Something went wrong</h3>
+              <p className="text-[#F7F7FF]/70 mb-3">{error}</p>
+              <button
+                onClick={fetchEntries}
+                className="px-4 py-2 border border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-colors text-sm font-normal cursor-pointer"
+              >
+                Try again
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
       {/* Calendar */}
       {!isLoading && !error && (
-        <MonthCalendar
-          entries={filteredEntries}
-          onDayClick={handleDayClick}
-          currentMonth={currentMonth}
-          onMonthChange={handleMonthChange}
-        />
+        <div>
+          <MonthCalendar
+            entries={filteredEntries}
+            onDayClick={handleDayClick}
+            currentMonth={currentMonth}
+            onMonthChange={handleMonthChange}
+          />
+        </div>
       )}
 
-      {/* Empty state */}
+      {/* Empty State */}
       {!isLoading && !error && entries.length === 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center mt-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-4">
-            <Calendar size={32} className="text-blue-500" />
+        <div className="border border-[#F7F7FF]/10 rounded-lg p-16 text-center mt-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 border border-[#F7F7FF]/20 rounded-lg mb-6">
+            <Calendar size={40} className="text-[#F7F7FF]" />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No entries yet this month</h2>
-          <p className="text-gray-600 mb-6">
-            Start writing today to see your entries appear on the calendar.
+          <h2 className="text-2xl font-normal text-[#F7F7FF] mb-3">No entries yet this month</h2>
+          <p className="text-[#F7F7FF]/70 mb-8 text-lg max-w-md mx-auto">
+            Start writing today to see your entries appear on the calendar and track your progress.
           </p>
           <a
             href="/write"
-            className="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal cursor-pointer"
           >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
             Write Your First Entry
           </a>
         </div>
