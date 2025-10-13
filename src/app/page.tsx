@@ -11,13 +11,13 @@ export default function Home() {
           <div className="flex gap-4">
             <Link
               href="/login"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors"
+              className="px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors cursor-pointer"
             >
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer"
             >
               Get Started
             </Link>
@@ -39,13 +39,13 @@ export default function Home() {
           <div className="flex gap-4 justify-center">
             <Link
               href="/signup"
-              className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-lg"
+              className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-lg cursor-pointer"
             >
               Start Writing Free
             </Link>
             <Link
               href="/login"
-              className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 transition-colors font-medium text-lg"
+              className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 transition-colors font-medium text-lg cursor-pointer"
             >
               Sign In
             </Link>
@@ -138,7 +138,7 @@ export default function Home() {
           </p>
           <Link
             href="/signup"
-            className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg"
+            className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg cursor-pointer"
           >
             Get Started Free
           </Link>
