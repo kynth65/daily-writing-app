@@ -24,6 +24,7 @@ export default function TipTapEditor({ content, onChange, placeholder }: TipTapE
       }),
     ],
     content,
+    immediatelyRender: false,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML()
       onChange(html)
@@ -72,7 +73,7 @@ export default function TipTapEditor({ content, onChange, placeholder }: TipTapE
         </div>
         <button
           onClick={toggleFullscreen}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
           title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
         >
           {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
