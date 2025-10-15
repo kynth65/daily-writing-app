@@ -19,6 +19,8 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState('')
+  const [exporting, setExporting] = useState(false)
+  const [exportFormat, setExportFormat] = useState<'json' | 'csv' | 'markdown'>('json')
 
   useEffect(() => {
     loadUserAndSettings()
@@ -87,6 +89,54 @@ export default function SettingsPage() {
 
   const handleReminderTimeChange = (time: string) => {
     updateSettings({ reminder_time: time })
+  }
+
+  const handleExport = async () => {
+    setExporting(true)
+    setSaveMessage('')
+
+    try {
+      const response = await fetch(`/api/export?format=${exportFormat}`)
+
+      if (!response.ok) {
+        throw new Error('Export failed')
+      }
+
+      // Get the blob from response
+      const blob = await response.blob()
+
+      // Get filename from Content-Disposition header or create default
+      const contentDisposition = response.headers.get('Content-Disposition')
+      let filename = `daily-writing-entries-${new Date().toISOString().split('T')[0]}.${exportFormat}`
+
+      if (contentDisposition) {
+        const matches = /filename="(.+)"/.exec(contentDisposition)
+        if (matches && matches[1]) {
+          filename = matches[1]
+        }
+      }
+
+      // Create download link and trigger download
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+
+      // Cleanup
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+
+      setSaveMessage('Export completed successfully')
+      setTimeout(() => setSaveMessage(''), 3000)
+    } catch (error) {
+      console.error('Export failed:', error)
+      setSaveMessage('Failed to export entries')
+      setTimeout(() => setSaveMessage(''), 3000)
+    } finally {
+      setExporting(false)
+    }
   }
 
   const handleSignOut = async () => {
@@ -205,23 +255,71 @@ export default function SettingsPage() {
         title="Data Management"
         description="Export or delete your data"
       >
-        <div className="space-y-4">
-          <button
-            className="w-full px-4 py-3 bg-transparent border border-[rgba(247,247,255,0.1)] text-[#F7F7FF] rounded-lg hover:bg-[rgba(247,247,255,0.1)] transition-colors"
-            onClick={() => alert('Export feature coming soon!')}
-          >
-            Export All Entries
-          </button>
-          <button
-            className="w-full px-4 py-3 bg-transparent border border-red-500/30 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors"
-            onClick={() => {
-              if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-                alert('Account deletion feature coming soon!')
-              }
-            }}
-          >
-            Delete Account
-          </button>
+        <div className="space-y-6">
+          {/* Export Section */}
+          <div className="space-y-3">
+            <div className="text-[#F7F7FF] mb-2">Export All Entries</div>
+            <div className="text-sm text-[#F7F7FF] opacity-60 mb-3">
+              Download all your writing entries in your preferred format
+            </div>
+
+            {/* Format Selection */}
+            <div className="flex gap-2 mb-3">
+              <button
+                onClick={() => setExportFormat('json')}
+                className={`px-4 py-2 rounded-lg border transition-colors ${
+                  exportFormat === 'json'
+                    ? 'bg-[rgba(247,247,255,0.15)] border-[#F7F7FF] text-[#F7F7FF]'
+                    : 'bg-transparent border-[rgba(247,247,255,0.1)] text-[#F7F7FF] hover:bg-[rgba(247,247,255,0.1)]'
+                }`}
+              >
+                JSON
+              </button>
+              <button
+                onClick={() => setExportFormat('csv')}
+                className={`px-4 py-2 rounded-lg border transition-colors ${
+                  exportFormat === 'csv'
+                    ? 'bg-[rgba(247,247,255,0.15)] border-[#F7F7FF] text-[#F7F7FF]'
+                    : 'bg-transparent border-[rgba(247,247,255,0.1)] text-[#F7F7FF] hover:bg-[rgba(247,247,255,0.1)]'
+                }`}
+              >
+                CSV
+              </button>
+              <button
+                onClick={() => setExportFormat('markdown')}
+                className={`px-4 py-2 rounded-lg border transition-colors ${
+                  exportFormat === 'markdown'
+                    ? 'bg-[rgba(247,247,255,0.15)] border-[#F7F7FF] text-[#F7F7FF]'
+                    : 'bg-transparent border-[rgba(247,247,255,0.1)] text-[#F7F7FF] hover:bg-[rgba(247,247,255,0.1)]'
+                }`}
+              >
+                Markdown
+              </button>
+            </div>
+
+            {/* Export Button */}
+            <button
+              onClick={handleExport}
+              disabled={exporting}
+              className="w-full px-4 py-3 bg-transparent border border-[rgba(247,247,255,0.1)] text-[#F7F7FF] rounded-lg hover:bg-[rgba(247,247,255,0.1)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {exporting ? 'Exporting...' : `Export as ${exportFormat.toUpperCase()}`}
+            </button>
+          </div>
+
+          {/* Delete Account */}
+          <div className="pt-4 border-t border-[rgba(247,247,255,0.1)]">
+            <button
+              className="w-full px-4 py-3 bg-transparent border border-red-500/30 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors"
+              onClick={() => {
+                if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                  alert('Account deletion feature coming soon!')
+                }
+              }}
+            >
+              Delete Account
+            </button>
+          </div>
         </div>
       </SettingsSection>
 
