@@ -1,17 +1,36 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import TipTapEditor from "@/components/editor/TipTapEditor";
 import { getTodayPrompt } from "@/lib/prompts";
 import { format } from "date-fns";
-import { CheckCircle2, AlertCircle, Loader2, Sparkles, X, Save } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2, Sparkles, X, Save, WifiOff } from "lucide-react";
+import { localDB } from "@/lib/db/indexedDB";
+import { syncManager } from "@/lib/sync/syncManager";
 
 export default function WritePage() {
   const [content, setContent] = useState("");
   const [todayPrompt] = useState(() => getTodayPrompt());
   const [showPrompt, setShowPrompt] = useState(true);
-  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'saved_offline' | 'error'>('idle');
+  const [isOnline, setIsOnline] = useState(true);
   const today = format(new Date(), "yyyy-MM-dd");
+
+  // Monitor online/offline status
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   // Helper function to check if content is empty
   const isContentEmpty = (text: string) => {
@@ -28,35 +47,119 @@ export default function WritePage() {
 
     setSaveStatus('saving');
 
+    // Calculate word count
+    const text = content.replace(/<[^>]*>/g, '').trim();
+    const words = text.split(/\s+/).filter(word => word.length > 0);
+    const wordCount = words.length;
+
     try {
-      // Always create new entry
-      const response = await fetch("/api/entries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content, date: today }),
-      });
+      // If online, try to save to server
+      if (navigator.onLine) {
+        const response = await fetch("/api/entries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content, date: today }),
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to save entry");
+        if (!response.ok) {
+          throw new Error("Failed to save entry");
+        }
+
+        const result = await response.json();
+
+        // Also save to IndexedDB as cache
+        if (result.entry) {
+          await localDB.saveEntry({
+            id: result.entry.id,
+            user_id: result.entry.user_id,
+            content,
+            word_count: wordCount,
+            created_at: result.entry.created_at,
+            updated_at: result.entry.updated_at,
+            synced: true,
+          });
+        }
+
+        setSaveStatus('saved');
+        setContent("");
+
+        setTimeout(() => {
+          setSaveStatus('idle');
+        }, 3000);
+      } else {
+        // Offline mode - save to IndexedDB
+        const tempId = `temp-${Date.now()}`;
+        const now = new Date().toISOString();
+
+        await localDB.saveEntry({
+          id: tempId,
+          user_id: 'offline-user', // Will be replaced on sync
+          content,
+          word_count: wordCount,
+          created_at: now,
+          updated_at: now,
+          synced: false,
+        });
+
+        // Add to pending sync queue
+        await localDB.addPendingSync({
+          id: `sync-${tempId}`,
+          entry_id: tempId,
+          action: 'create',
+          data: { content, word_count: wordCount },
+          timestamp: Date.now(),
+        });
+
+        // Register background sync
+        await syncManager.registerBackgroundSync();
+
+        setSaveStatus('saved_offline');
+        setContent("");
+
+        setTimeout(() => {
+          setSaveStatus('idle');
+        }, 3000);
       }
-
-      setSaveStatus('saved');
-
-      // Clear the editor after successful save
-      setContent("");
-
-      // Reset status after 3 seconds
-      setTimeout(() => {
-        setSaveStatus('idle');
-      }, 3000);
     } catch (error) {
       console.error("Error saving entry:", error);
-      setSaveStatus('error');
 
-      // Reset error status after 3 seconds
-      setTimeout(() => {
-        setSaveStatus('idle');
-      }, 3000);
+      // Try to save offline as fallback
+      try {
+        const tempId = `temp-${Date.now()}`;
+        const now = new Date().toISOString();
+
+        await localDB.saveEntry({
+          id: tempId,
+          user_id: 'offline-user',
+          content,
+          word_count: wordCount,
+          created_at: now,
+          updated_at: now,
+          synced: false,
+        });
+
+        await localDB.addPendingSync({
+          id: `sync-${tempId}`,
+          entry_id: tempId,
+          action: 'create',
+          data: { content, word_count: wordCount },
+          timestamp: Date.now(),
+        });
+
+        setSaveStatus('saved_offline');
+        setContent("");
+
+        setTimeout(() => {
+          setSaveStatus('idle');
+        }, 3000);
+      } catch (offlineError) {
+        console.error("Failed to save offline:", offlineError);
+        setSaveStatus('error');
+
+        setTimeout(() => {
+          setSaveStatus('idle');
+        }, 3000);
+      }
     }
   }, [content, today]);
 
@@ -72,6 +175,12 @@ export default function WritePage() {
           <div className="flex items-center gap-2 px-4 py-2 border border-[#F7F7FF]/20 rounded-lg text-[#F7F7FF] text-sm font-normal bg-[#3A4F41]">
             <CheckCircle2 size={14} />
             <span>Saved</span>
+          </div>
+        )}
+        {saveStatus === "saved_offline" && (
+          <div className="flex items-center gap-2 px-4 py-2 border border-[#F7F7FF]/20 rounded-lg text-[#F7F7FF] text-sm font-normal bg-[#3A4F41]">
+            <WifiOff size={14} />
+            <span>Saved offline</span>
           </div>
         )}
         {saveStatus === "saving" && (
