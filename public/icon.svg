@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#3A4F41"/>
+  <g transform="translate(256, 256)">
+    <path d="M-40,-80 L-40,80 M-20,-80 L-20,80 M0,-80 L0,80 M20,-80 L20,80 M40,-80 L40,80"
+          stroke="#F7F7FF"
+          stroke-width="3"
+          opacity="0.3"/>
+    <text x="0" y="20"
+          font-family="serif"
+          font-size="120"
+          fill="#F7F7FF"
+          text-anchor="middle"
+          dominant-baseline="middle">W</text>
+  </g>
+</svg>
