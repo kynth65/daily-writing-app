@@ -1,49 +1,23 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { format } from 'date-fns'
 import { Calendar, Loader2, Search } from 'lucide-react'
 import { MonthCalendar } from '@/components/calendar/MonthCalendar'
 import { EntryPreview } from '@/components/history/EntryPreview'
 import { Entry } from '@/types'
+import { useHistory } from '@/hooks/useHistory'
 
 export default function HistoryPage() {
-  const [entries, setEntries] = useState<Entry[]>([])
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedEntries, setSelectedEntries] = useState<Entry[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [currentMonth, setCurrentMonth] = useState(new Date())
 
-  // Fetch entries for the current month
-  useEffect(() => {
-    fetchEntries()
-  }, [currentMonth])
+  // Use SWR hook for optimized data fetching with caching
+  const { entries, isLoading, isError, mutate } = useHistory(currentMonth)
 
-  const fetchEntries = async () => {
-    setIsLoading(true)
-    setError(null)
-    try {
-      const monthStr = format(currentMonth, 'yyyy-MM')
-      console.log('Fetching entries for month:', monthStr)
-      const response = await fetch(`/api/history?month=${monthStr}`)
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch entries')
-      }
-
-      const data = await response.json()
-      console.log('Received entries:', data.entries?.length || 0, 'entries')
-      console.log('Entries by date:', Object.keys(data.entriesByDate || {}))
-      setEntries(data.entries || [])
-    } catch (err) {
-      console.error('Error fetching entries:', err)
-      setError('Failed to load your writing history. Please try again.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  const error = isError ? 'Failed to load your writing history. Please try again.' : null
 
   const handleMonthChange = (newMonth: Date) => {
     console.log('Month changed to:', format(newMonth, 'yyyy-MM'))
@@ -76,11 +50,10 @@ export default function HistoryPage() {
       }
 
       // Update local state
-      setEntries((prev) => prev.filter((entry) => entry.id !== entryId))
       setSelectedEntries((prev) => prev.filter((entry) => entry.id !== entryId))
 
-      // Refresh the view
-      await fetchEntries()
+      // Revalidate the cache to refresh the view
+      await mutate()
     } catch (err) {
       console.error('Error deleting entry:', err)
       throw err
@@ -185,7 +158,7 @@ export default function HistoryPage() {
               <h3 className="text-[#F7F7FF] font-normal mb-1">Oops! Something went wrong</h3>
               <p className="text-[#F7F7FF]/70 mb-3">{error}</p>
               <button
-                onClick={fetchEntries}
+                onClick={() => mutate()}
                 className="px-4 py-2 border border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-colors text-sm font-normal cursor-pointer"
               >
                 Try again
