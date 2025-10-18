@@ -1,4 +1,5 @@
 import DashboardNav from '@/components/layout/DashboardNav'
+import { PageTransition } from '@/components/transitions/PageTransition'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
@@ -22,7 +23,9 @@ export default async function AppLayout({
       <DashboardNav />
 
       <main className="px-6 py-6 sm:px-8 sm:py-8 lg:ml-80 lg:p-10 min-h-screen">
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </main>
     </div>
   )
