@@ -1,7 +1,17 @@
 import Link from 'next/link'
 import { PenTool, TrendingUp, Target } from 'lucide-react'
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
+export default async function Home() {
+  // Check if user is authenticated
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Redirect authenticated users to dashboard
+  if (user) {
+    redirect('/dashboard')
+  }
   return (
     <div className="min-h-screen bg-[#3A4F41]">
       {/* Header */}
@@ -18,12 +28,6 @@ export default function Home() {
           <div className="flex gap-3">
             <Link
               href="/login"
-              className="px-5 py-2.5 text-[#F7F7FF] hover:text-[#F7F7FF]/80 transition-all duration-200 font-normal cursor-pointer"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/signup"
               className="px-6 py-2.5 border border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal cursor-pointer"
             >
               Get Started
@@ -45,16 +49,10 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              href="/signup"
+              href="/login"
               className="px-8 py-4 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal text-lg cursor-pointer"
             >
               Start Writing Free
-            </Link>
-            <Link
-              href="/login"
-              className="px-8 py-4 border border-[#F7F7FF]/30 text-[#F7F7FF] rounded-lg hover:border-[#F7F7FF]/50 hover:bg-[#F7F7FF]/5 transition-all duration-200 font-normal text-lg cursor-pointer"
-            >
-              Sign In
             </Link>
           </div>
         </div>
@@ -141,7 +139,7 @@ export default function Home() {
             Build a consistent daily writing practice.
           </p>
           <Link
-            href="/signup"
+            href="/login"
             className="inline-flex items-center gap-2 px-10 py-4 border-2 border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal text-lg cursor-pointer"
           >
             Get Started Free
