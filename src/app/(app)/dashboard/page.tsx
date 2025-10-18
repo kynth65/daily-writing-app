@@ -2,30 +2,10 @@
 
 import Link from 'next/link'
 import { PenTool, Flame, BookOpen, Award, TrendingUp } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import type { UserStats } from '@/lib/stats'
+import { useStats } from '@/hooks/useStats'
 
 export default function DashboardPage() {
-  const [stats, setStats] = useState<UserStats | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function fetchStats() {
-      try {
-        const response = await fetch('/api/stats?type=overview')
-        if (response.ok) {
-          const data = await response.json()
-          setStats(data)
-        }
-      } catch (error) {
-        console.error('Failed to fetch stats:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchStats()
-  }, [])
+  const { stats, isLoading: loading } = useStats()
 
   const formatNumber = (num: number) => {
     return num.toLocaleString()
