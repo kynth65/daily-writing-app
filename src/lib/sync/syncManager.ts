@@ -97,7 +97,14 @@ class SyncManager {
   }
 
   // Create entry on server
-  private async createEntryOnServer(data: Partial<{ content: string; word_count: number }>): Promise<void> {
+  private async createEntryOnServer(data: Partial<{ content: string; word_count: number; date: string }>): Promise<void> {
+    console.log('[Sync] Creating entry on server with data:', {
+      hasContent: !!data.content,
+      contentLength: data.content?.length || 0,
+      wordCount: data.word_count,
+      date: data.date,
+    });
+
     const response = await fetch('/api/entries', {
       method: 'POST',
       headers: {
@@ -107,24 +114,34 @@ class SyncManager {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to create entry on server');
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('[Sync] Server error:', errorData);
+      console.error('[Sync] Response status:', response.status);
+      throw new Error(`Failed to create entry on server: ${response.status} - ${errorData.error || errorData.details || 'Unknown error'}`);
     }
 
     const result = await response.json();
 
     // Update local entry with server ID and mark as synced
     if (result.entry) {
-      const localEntry = await localDB.getEntry(data.content || '');
+      // Get all unsynced entries and find the one that matches this content
+      const unsyncedEntries = await localDB.getUnsyncedEntries();
+      const localEntry = unsyncedEntries.find(e => e.content === data.content);
+
       if (localEntry) {
-        localEntry.id = result.entry.id;
-        localEntry.synced = true;
-        await localDB.saveEntry(localEntry);
+        // Update the entry with the server ID and mark as synced
+        await localDB.saveEntry({
+          ...localEntry,
+          id: result.entry.id,
+          user_id: result.entry.user_id,
+          synced: true,
+        });
       }
     }
   }
 
   // Update entry on server
-  private async updateEntryOnServer(entryId: string, data: Partial<{ content: string; word_count: number }>): Promise<void> {
+  private async updateEntryOnServer(entryId: string, data: Partial<{ content: string; word_count: number; date: string }>): Promise<void> {
     const response = await fetch(`/api/entries/${entryId}`, {
       method: 'PATCH',
       headers: {
@@ -134,14 +151,18 @@ class SyncManager {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to update entry on server');
+      const errorText = await response.text();
+      console.error('[Sync] Server error:', errorText);
+      throw new Error(`Failed to update entry on server: ${response.status}`);
     }
 
     // Mark local entry as synced
     const localEntry = await localDB.getEntry(entryId);
     if (localEntry) {
-      localEntry.synced = true;
-      await localDB.saveEntry(localEntry);
+      await localDB.saveEntry({
+        ...localEntry,
+        synced: true,
+      });
     }
   }
 
