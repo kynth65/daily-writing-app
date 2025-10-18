@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Home, PenTool, Calendar, BarChart3, Settings, LogOut, Menu, X } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useState, useEffect } from 'react'
+import { mutate } from 'swr'
+import { format } from 'date-fns'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
@@ -13,6 +15,18 @@ const navItems = [
   { href: '/stats', label: 'Stats', icon: BarChart3 },
   { href: '/settings', label: 'Settings', icon: Settings },
 ]
+
+// Prefetch data for faster navigation
+const prefetchData = (href: string) => {
+  if (href === '/dashboard' || href === '/stats') {
+    // Prefetch stats data (shared cache between dashboard and stats)
+    mutate('/api/stats?type=overview')
+  } else if (href === '/history') {
+    // Prefetch current month history
+    const monthStr = format(new Date(), 'yyyy-MM')
+    mutate(`/api/history?month=${monthStr}`)
+  }
+}
 
 export default function DashboardNav() {
   const pathname = usePathname()
@@ -93,7 +107,9 @@ export default function DashboardNav() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={true}
                 onClick={() => setMobileMenuOpen(false)}
+                onMouseEnter={() => prefetchData(item.href)}
                 className={`
                   flex items-center gap-4 px-4 sm:px-5 py-3.5 sm:py-4 rounded-lg
                   transition-all duration-200 cursor-pointer border
