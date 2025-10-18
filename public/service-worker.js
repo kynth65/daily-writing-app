@@ -1,7 +1,7 @@
 // Service Worker for Daily Writing App
-const CACHE_NAME = 'daily-writing-v1';
-const RUNTIME_CACHE = 'runtime-cache-v1';
-const API_CACHE = 'api-cache-v1';
+const CACHE_NAME = 'daily-writing-v2';
+const RUNTIME_CACHE = 'runtime-cache-v2';
+const API_CACHE = 'api-cache-v2';
 
 // Assets to cache on install (only cache actual static assets)
 const PRECACHE_ASSETS = [
@@ -53,11 +53,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip Next.js hot-reload and development chunks
-  if (url.pathname.includes('/_next/static/chunks/') ||
-      url.pathname.includes('webpack') ||
+  // Skip Next.js internal requests - let Next.js handle these directly
+  // This includes chunks, hot-reload, error frames, and other development tools
+  if (url.pathname.includes('/_next/') ||
+      url.pathname.includes('/__nextjs') ||
+      url.pathname.includes('/webpack') ||
       url.searchParams.has('__nextjs')) {
-    // Let Next.js handle these requests directly
+    // Don't intercept - let Next.js handle these requests
     return;
   }
 
@@ -70,14 +72,15 @@ self.addEventListener('fetch', (event) => {
   // Static assets - Cache First strategy
   if (request.destination === 'image' ||
       request.destination === 'font' ||
-      request.destination === 'style' ||
-      (request.destination === 'script' && !url.pathname.includes('/_next/'))) {
+      request.destination === 'style') {
     event.respondWith(cacheFirstStrategy(request, RUNTIME_CACHE));
     return;
   }
 
   // Pages - Network First with cache fallback
-  event.respondWith(networkFirstStrategy(request, RUNTIME_CACHE));
+  if (request.destination === 'document') {
+    event.respondWith(networkFirstStrategy(request, RUNTIME_CACHE));
+  }
 });
 
 // Cache First Strategy - for static assets
