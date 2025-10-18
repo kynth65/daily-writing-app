@@ -18,7 +18,7 @@ export interface PendingSync {
   id: string;
   entry_id: string;
   action: 'create' | 'update' | 'delete';
-  data: Partial<StoredEntry>;
+  data: Partial<StoredEntry> & { date?: string }; // Include date for API compatibility
   timestamp: number;
 }
 
