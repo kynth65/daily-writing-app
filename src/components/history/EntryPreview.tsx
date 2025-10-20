@@ -117,6 +117,14 @@ export function EntryPreview({ entries, selectedDate, isOpen, onClose, onDelete 
                 <span>Updated {format(new Date(currentEntry.updated_at), 'h:mm a')}</span>
               </div>
             )}
+            {currentEntry.emotion && (
+              <div className="flex items-center gap-2 px-2 py-1 border border-[#F7F7FF]/10">
+                <svg className="w-4 h-4 text-[#F7F7FF]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="capitalize">{currentEntry.emotion}</span>
+              </div>
+            )}
           </div>
         </div>
 
