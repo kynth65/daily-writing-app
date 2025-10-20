@@ -76,14 +76,14 @@ COMMENT ON COLUMN user_settings.subscription_ends_at IS 'When premium subscripti
 CREATE OR REPLACE VIEW mood_trends AS
 SELECT
   user_id,
-  DATE(entry_date) as date,
+  date,
   AVG(mood_score) as avg_mood,
   COUNT(*) as entry_count,
   ARRAY_AGG(DISTINCT emotion) FILTER (WHERE emotion IS NOT NULL) as emotions
 FROM entries
-WHERE entry_date >= CURRENT_DATE - INTERVAL '30 days'
+WHERE date >= CURRENT_DATE - INTERVAL '30 days'
   AND mood_score IS NOT NULL
-GROUP BY user_id, DATE(entry_date)
+GROUP BY user_id, date
 ORDER BY date DESC;
 
 COMMENT ON VIEW mood_trends IS 'Aggregated mood trends over the last 30 days';
