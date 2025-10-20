@@ -16,7 +16,6 @@ export default function TipTapEditor({ content, onChange, placeholder }: TipTapE
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [wordCount, setWordCount] = useState(0)
   const [charCount, setCharCount] = useState(0)
-  const [isTyping, setIsTyping] = useState(false)
 
   const editor = useEditor({
     extensions: [
@@ -40,11 +39,6 @@ export default function TipTapEditor({ content, onChange, placeholder }: TipTapE
       const words = text.trim().split(/\s+/).filter(word => word.length > 0)
       setWordCount(words.length)
       setCharCount(text.length)
-
-      // Show typing indicator
-      setIsTyping(true)
-      const timeout = setTimeout(() => setIsTyping(false), 1000)
-      return () => clearTimeout(timeout)
     },
     editorProps: {
       attributes: {

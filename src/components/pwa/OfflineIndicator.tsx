@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { WifiOff, Wifi, Cloud, CloudOff } from 'lucide-react';
+import { WifiOff, Cloud, CloudOff } from 'lucide-react';
 import { localDB } from '@/lib/db/indexedDB';
 import { syncManager } from '@/lib/sync/syncManager';
 
@@ -43,7 +43,6 @@ export function OfflineIndicator() {
     const interval = setInterval(checkPending, 5000);
 
     // Listen for sync events
-    const handleSyncStart = () => setIsSyncing(true);
     const handleSyncEnd = () => {
       setIsSyncing(false);
       checkPending();

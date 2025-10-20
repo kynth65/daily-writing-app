@@ -1,6 +1,6 @@
 'use client'
 
-import { format, isSameDay, isToday } from 'date-fns'
+import { format, isToday } from 'date-fns'
 import { cn } from '@/lib/utils'
 
 interface DayCellProps {
