@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { format } from 'date-fns'
-import { X, Edit, Trash2, ChevronLeft, ChevronRight, Calendar, FileText, Clock } from 'lucide-react'
+import { X, Trash2, ChevronLeft, ChevronRight, Calendar, FileText, Clock } from 'lucide-react'
 import { Entry } from '@/types'
-import { useRouter } from 'next/navigation'
 
 interface EntryPreviewProps {
   entries: Entry[]
@@ -17,7 +16,6 @@ interface EntryPreviewProps {
 export function EntryPreview({ entries, selectedDate, isOpen, onClose, onDelete }: EntryPreviewProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
-  const router = useRouter()
 
   if (!isOpen || entries.length === 0) return null
 
@@ -30,10 +28,6 @@ export function EntryPreview({ entries, selectedDate, isOpen, onClose, onDelete 
 
   const handleNextEntry = () => {
     setCurrentIndex((prev) => (prev < entries.length - 1 ? prev + 1 : 0))
-  }
-
-  const handleEdit = () => {
-    router.push(`/write?date=${currentEntry.date}&entryId=${currentEntry.id}`)
   }
 
   const handleDelete = async () => {
@@ -133,7 +127,7 @@ export function EntryPreview({ entries, selectedDate, isOpen, onClose, onDelete 
           <div
             className="prose prose-invert prose-lg max-w-none text-[#F7F7FF]/90 leading-relaxed"
             style={{
-              fontFamily: 'var(--font-instrument-serif)',
+              fontFamily: 'var(--font-raleway)',
             }}
             dangerouslySetInnerHTML={{ __html: currentEntry.content }}
           />
@@ -168,13 +162,6 @@ export function EntryPreview({ entries, selectedDate, isOpen, onClose, onDelete 
 
             {/* Action buttons */}
             <div className="flex items-center gap-3">
-              <button
-                onClick={handleEdit}
-                className="flex items-center gap-2 px-5 py-2.5 border border-[#F7F7FF] text-[#F7F7FF] rounded-lg hover:bg-[#F7F7FF]/10 transition-all duration-200 font-normal"
-              >
-                <Edit size={16} />
-                <span>Edit</span>
-              </button>
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
