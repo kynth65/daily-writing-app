@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Home, PenTool, Calendar, BarChart3, Settings, LogOut, Menu, X } from 'lucide-react'
+import { Home, PenTool, Calendar, BarChart3, Sparkles, Settings, LogOut, Menu, X } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useState, useEffect } from 'react'
 import { mutate } from 'swr'
@@ -13,6 +13,7 @@ const navItems = [
   { href: '/write', label: 'Write', icon: PenTool },
   { href: '/history', label: 'History', icon: Calendar },
   { href: '/stats', label: 'Stats', icon: BarChart3 },
+  { href: '/insights', label: 'Insights', icon: Sparkles },
   { href: '/settings', label: 'Settings', icon: Settings },
 ]
 
@@ -25,6 +26,9 @@ const prefetchData = (href: string) => {
     // Prefetch current month history
     const monthStr = format(new Date(), 'yyyy-MM')
     mutate(`/api/history?month=${monthStr}`)
+  } else if (href === '/insights') {
+    // Prefetch reflections data
+    mutate('/api/ai/reflect?limit=20')
   }
 }
 
