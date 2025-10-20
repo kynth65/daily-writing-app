@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Playfair_Display } from "next/font/google";
+import { Instrument_Serif, Playfair_Display, Raleway } from "next/font/google";
 import "./globals.css";
 import { PWAProvider } from "@/components/pwa/PWAProvider";
 
@@ -15,6 +15,13 @@ const playfairDisplay = Playfair_Display({
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-playfair-display",
+});
+
+const raleway = Raleway({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-raleway",
 });
 
 export const metadata: Metadata = {
@@ -51,7 +58,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
-        className={`${instrumentSerif.variable} ${playfairDisplay.variable} antialiased`}
+        className={`${instrumentSerif.variable} ${playfairDisplay.variable} ${raleway.variable} antialiased`}
       >
         <PWAProvider>
           {children}
