@@ -92,7 +92,7 @@ export default function DashboardNav() {
             <div className="w-10 h-10 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
               <PenTool size={20} className="text-[#F7F7FF]" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-normal text-[#F7F7FF]">
+            <h1 className="text-2xl font-normal text-[#F7F7FF]">
               Daily Writer
             </h1>
           </div>

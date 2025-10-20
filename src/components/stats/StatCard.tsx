@@ -24,7 +24,7 @@ export default function StatCard({
         <div className="flex-1">
           <p className="text-sm text-[#F7F7FF] opacity-60">{title}</p>
           <div className="mt-2 flex items-baseline gap-2">
-            <p className="text-3xl text-[#F7F7FF]">{value}</p>
+            <p className="text-4xl text-[#F7F7FF]">{value}</p>
             {trend && (
               <span
                 className={`text-sm ${

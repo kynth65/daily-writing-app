@@ -30,11 +30,11 @@ export default function DashboardPage() {
               <Flame className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Current Streak</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
-            {loading ? '...' : stats?.currentStreak || 0} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span>
+          <h3 className="text-sm font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Current Streak</h3>
+          <p className="text-4xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : stats?.currentStreak || 0} <span className="text-base text-[#F7F7FF]/70">days</span>
           </p>
-          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Keep writing daily</p>
+          <p className="text-sm text-[#F7F7FF]/50">Keep writing daily</p>
         </div>
 
         {/* Total Entries Card */}
@@ -44,11 +44,11 @@ export default function DashboardPage() {
               <BookOpen className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Entries</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
-            {loading ? '...' : formatNumber(stats?.totalEntries || 0)} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">posts</span>
+          <h3 className="text-sm font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Entries</h3>
+          <p className="text-4xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : formatNumber(stats?.totalEntries || 0)} <span className="text-base text-[#F7F7FF]/70">posts</span>
           </p>
-          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">
+          <p className="text-sm text-[#F7F7FF]/50">
             {stats?.totalEntries === 0 ? 'Start your journey' : 'Great progress!'}
           </p>
         </div>
@@ -60,11 +60,11 @@ export default function DashboardPage() {
               <PenTool className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Words</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
-            {loading ? '...' : formatNumber(stats?.totalWords || 0)} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">words</span>
+          <h3 className="text-sm font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Total Words</h3>
+          <p className="text-4xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : formatNumber(stats?.totalWords || 0)} <span className="text-base text-[#F7F7FF]/70">words</span>
           </p>
-          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Every word counts</p>
+          <p className="text-sm text-[#F7F7FF]/50">Every word counts</p>
         </div>
 
         {/* Longest Streak Card */}
@@ -74,11 +74,11 @@ export default function DashboardPage() {
               <Award className="text-[#F7F7FF]" size={14} />
             </div>
           </div>
-          <h3 className="text-[10px] sm:text-xs font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Best Streak</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
-            {loading ? '...' : stats?.longestStreak || 0} <span className="text-sm sm:text-base md:text-lg text-[#F7F7FF]/70">days</span>
+          <h3 className="text-sm font-normal text-[#F7F7FF]/70 mb-1 sm:mb-2 uppercase tracking-wide">Best Streak</h3>
+          <p className="text-4xl font-normal text-[#F7F7FF] mb-1 sm:mb-2">
+            {loading ? '...' : stats?.longestStreak || 0} <span className="text-base text-[#F7F7FF]/70">days</span>
           </p>
-          <p className="text-[10px] sm:text-xs md:text-sm text-[#F7F7FF]/50">Beat your record</p>
+          <p className="text-sm text-[#F7F7FF]/50">Beat your record</p>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ export default function DashboardPage() {
           <div className="w-12 h-12 border border-[#F7F7FF]/20 rounded-lg flex items-center justify-center">
             <PenTool className="text-[#F7F7FF]" size={24} />
           </div>
-          <h2 className="text-2xl font-normal text-[#F7F7FF]">Write Your Daily Entry</h2>
+          <h2 className="text-xl font-normal text-[#F7F7FF]">Write Your Daily Entry</h2>
         </div>
         <p className="mb-8 text-[#F7F7FF]/70 text-base max-w-2xl">
           Take a few moments to reflect on your day and capture your thoughts.
@@ -113,7 +113,7 @@ export default function DashboardPage() {
               <BookOpen className="text-[#F7F7FF]" size={18} />
             </div>
             <div>
-              <h3 className="font-normal text-[#F7F7FF] mb-1">View History</h3>
+              <h3 className="text-base font-normal text-[#F7F7FF] mb-1">View History</h3>
               <p className="text-sm text-[#F7F7FF]/70">Browse past entries</p>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function DashboardPage() {
               <TrendingUp className="text-[#F7F7FF]" size={18} />
             </div>
             <div>
-              <h3 className="font-normal text-[#F7F7FF] mb-1">Statistics</h3>
+              <h3 className="text-base font-normal text-[#F7F7FF] mb-1">Statistics</h3>
               <p className="text-sm text-[#F7F7FF]/70">View your analytics</p>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
               </svg>
             </div>
             <div>
-              <h3 className="font-normal text-[#F7F7FF] mb-1">Settings</h3>
+              <h3 className="text-base font-normal text-[#F7F7FF] mb-1">Settings</h3>
               <p className="text-sm text-[#F7F7FF]/70">Customize your experience</p>
             </div>
           </div>

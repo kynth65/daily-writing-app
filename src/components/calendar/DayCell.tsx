@@ -42,7 +42,7 @@ export function DayCell({
       <div className="flex items-start justify-between mb-1 sm:mb-2">
         <div
           className={cn(
-            'text-xs sm:text-sm font-normal transition-all',
+            'text-sm font-normal transition-all',
             isCurrentDay && 'inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full bg-[#F7F7FF] text-[#3A4F41] font-normal',
             !isCurrentDay && currentMonth && 'text-[#F7F7FF]',
             !isCurrentDay && !currentMonth && 'text-[#F7F7FF]/30'
@@ -62,7 +62,7 @@ export function DayCell({
       {/* Entry indicator with word count */}
       {hasEntry && currentMonth && (
         <div className="absolute bottom-1 sm:bottom-1.5 md:bottom-3 left-1 sm:left-1.5 md:left-3 right-1 sm:right-1.5 md:right-3">
-          <div className="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 text-[10px] sm:text-xs text-[#F7F7FF]/70 group-hover:text-[#F7F7FF] transition-colors">
+          <div className="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 text-sm text-[#F7F7FF]/70 group-hover:text-[#F7F7FF] transition-colors">
             <svg
               className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 flex-shrink-0"
               fill="none"
@@ -84,7 +84,7 @@ export function DayCell({
       {/* Hover preview tooltip - hidden on mobile */}
       {hasEntry && contentPreview && (
         <div className="hidden md:block absolute z-20 invisible group-hover:visible bottom-full left-1/2 -translate-x-1/2 mb-3 p-4 bg-[#3A4F41] border border-[#F7F7FF]/20 text-[#F7F7FF] text-sm rounded-lg shadow-2xl w-64 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none">
-          <div className="font-normal text-[#F7F7FF]/60 mb-2 text-xs uppercase tracking-wide">
+          <div className="font-normal text-[#F7F7FF]/60 mb-2 text-sm uppercase tracking-wide">
             {wordCount.toLocaleString()} words
           </div>
           <div className="line-clamp-3 text-[#F7F7FF]/90 leading-relaxed">

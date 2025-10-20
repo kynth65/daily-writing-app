@@ -39,11 +39,11 @@ export default async function Home() {
       {/* Hero Section */}
       <main className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-4xl mx-auto text-center mb-24">
-          <h1 className="text-5xl md:text-7xl font-normal mb-8 leading-tight text-[#F7F7FF]">
+          <h1 className="text-5xl font-normal mb-8 leading-tight text-[#F7F7FF]">
             Build Your Daily Writing Ritual
           </h1>
 
-          <p className="text-xl md:text-2xl text-[#F7F7FF]/70 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-[#F7F7FF]/70 mb-12 max-w-3xl mx-auto leading-relaxed">
             A distraction-free writing space to transform your thoughts into words.
           </p>
 
@@ -64,7 +64,7 @@ export default async function Home() {
               <PenTool className="text-[#F7F7FF]" size={20} />
             </div>
             <h3 className="text-xl font-normal mb-4 text-[#F7F7FF]">Daily Prompts</h3>
-            <p className="text-[#F7F7FF]/70 leading-relaxed">
+            <p className="text-base text-[#F7F7FF]/70 leading-relaxed">
               Thoughtful prompts to spark creativity and overcome writer&apos;s block.
             </p>
           </div>
@@ -74,7 +74,7 @@ export default async function Home() {
               <Target className="text-[#F7F7FF]" size={20} />
             </div>
             <h3 className="text-xl font-normal mb-4 text-[#F7F7FF]">Streak Tracking</h3>
-            <p className="text-[#F7F7FF]/70 leading-relaxed">
+            <p className="text-base text-[#F7F7FF]/70 leading-relaxed">
               Build momentum and stay motivated with visual streak tracking.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default async function Home() {
               <TrendingUp className="text-[#F7F7FF]" size={20} />
             </div>
             <h3 className="text-xl font-normal mb-4 text-[#F7F7FF]">Analytics</h3>
-            <p className="text-[#F7F7FF]/70 leading-relaxed">
+            <p className="text-base text-[#F7F7FF]/70 leading-relaxed">
               Track your word count and writing frequency over time.
             </p>
           </div>
@@ -92,7 +92,7 @@ export default async function Home() {
 
         {/* How It Works */}
         <div className="max-w-5xl mx-auto border border-[#F7F7FF]/10 rounded-lg p-12 md:p-16 mb-32">
-          <h2 className="text-3xl md:text-4xl font-normal text-center mb-4 text-[#F7F7FF]">
+          <h2 className="text-3xl font-normal text-center mb-4 text-[#F7F7FF]">
             How It Works
           </h2>
           <p className="text-center text-[#F7F7FF]/70 mb-16 text-lg">Simple steps to build your writing habit</p>
@@ -103,7 +103,7 @@ export default async function Home() {
                 1
               </div>
               <h3 className="text-lg font-normal mb-3 text-[#F7F7FF]">Sign Up Free</h3>
-              <p className="text-[#F7F7FF]/70 leading-relaxed">
+              <p className="text-base text-[#F7F7FF]/70 leading-relaxed">
                 Create your account in seconds. Start writing immediately.
               </p>
             </div>
@@ -113,7 +113,7 @@ export default async function Home() {
                 2
               </div>
               <h3 className="text-lg font-normal mb-3 text-[#F7F7FF]">Write Daily</h3>
-              <p className="text-[#F7F7FF]/70 leading-relaxed">
+              <p className="text-base text-[#F7F7FF]/70 leading-relaxed">
                 Use our distraction-free editor with daily prompts.
               </p>
             </div>
@@ -123,7 +123,7 @@ export default async function Home() {
                 3
               </div>
               <h3 className="text-lg font-normal mb-3 text-[#F7F7FF]">Track Progress</h3>
-              <p className="text-[#F7F7FF]/70 leading-relaxed">
+              <p className="text-base text-[#F7F7FF]/70 leading-relaxed">
                 Watch your streaks grow and gain insights.
               </p>
             </div>
@@ -132,10 +132,10 @@ export default async function Home() {
 
         {/* CTA */}
         <div className="max-w-5xl mx-auto text-center border border-[#F7F7FF]/10 rounded-lg p-16 md:p-20">
-          <h2 className="text-3xl md:text-4xl font-normal mb-6 text-[#F7F7FF]">
+          <h2 className="text-3xl font-normal mb-6 text-[#F7F7FF]">
             Ready to Start Writing?
           </h2>
-          <p className="text-lg md:text-xl mb-10 text-[#F7F7FF]/70 max-w-2xl mx-auto">
+          <p className="text-lg mb-10 text-[#F7F7FF]/70 max-w-2xl mx-auto">
             Build a consistent daily writing practice.
           </p>
           <Link
@@ -159,7 +159,7 @@ export default async function Home() {
                 Daily Writer
               </span>
             </div>
-            <p className="text-[#F7F7FF]/70 text-center max-w-md">
+            <p className="text-base text-[#F7F7FF]/70 text-center max-w-md">
               Build your writing habit, one day at a time.
             </p>
           </div>

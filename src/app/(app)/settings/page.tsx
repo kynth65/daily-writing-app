@@ -157,7 +157,7 @@ export default function SettingsPage() {
     <div className="max-w-3xl mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl text-[#F7F7FF] mb-2">Settings</h1>
-        <p className="text-[#F7F7FF] opacity-60">
+        <p className="text-base text-[#F7F7FF] opacity-60">
           Manage your account preferences and settings
         </p>
       </div>
@@ -182,7 +182,7 @@ export default function SettingsPage() {
             <label className="block text-sm text-[#F7F7FF] opacity-60 mb-2">
               Email
             </label>
-            <div className="text-[#F7F7FF]">
+            <div className="text-base text-[#F7F7FF]">
               {user?.email || 'Not available'}
             </div>
           </div>
@@ -190,7 +190,7 @@ export default function SettingsPage() {
             <label className="block text-sm text-[#F7F7FF] opacity-60 mb-2">
               Member since
             </label>
-            <div className="text-[#F7F7FF]">
+            <div className="text-base text-[#F7F7FF]">
               {user?.created_at
                 ? new Date(user.created_at).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -211,7 +211,7 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-[#F7F7FF] mb-1">Enable Reminders</div>
+              <div className="text-base text-[#F7F7FF] mb-1">Enable Reminders</div>
               <div className="text-sm text-[#F7F7FF] opacity-60">
                 Get reminded to write daily
               </div>
@@ -258,7 +258,7 @@ export default function SettingsPage() {
         <div className="space-y-6">
           {/* Export Section */}
           <div className="space-y-3">
-            <div className="text-[#F7F7FF] mb-2">Export All Entries</div>
+            <div className="text-base text-[#F7F7FF] mb-2">Export All Entries</div>
             <div className="text-sm text-[#F7F7FF] opacity-60 mb-3">
               Download all your writing entries in your preferred format
             </div>

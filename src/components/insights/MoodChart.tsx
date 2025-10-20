@@ -17,7 +17,7 @@ export default function MoodChart({ moodData }: MoodChartProps) {
   if (!moodData || moodData.length === 0) {
     return (
       <div className="text-center py-8 opacity-60">
-        <p className="text-xl">No mood data available yet. Keep writing!</p>
+        <p className="text-base">No mood data available yet. Keep writing!</p>
       </div>
     );
   }
@@ -69,21 +69,21 @@ export default function MoodChart({ moodData }: MoodChartProps) {
       {/* Overall Mood Summary */}
       <div className="flex items-center justify-between pb-4 border-b border-[#F7F7FF]/10">
         <div>
-          <p className="text-xl opacity-60 mb-1">Average Mood (30 days)</p>
+          <p className="text-sm opacity-60 mb-1">Average Mood (30 days)</p>
           <div className="flex items-center gap-2">
             {getMoodIcon(avgMood)}
-            <span className="text-3xl">{getMoodLabel(avgMood)}</span>
+            <span className="text-2xl">{getMoodLabel(avgMood)}</span>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-xl opacity-60">Mood Score</p>
-          <p className="text-3xl">{avgMood.toFixed(2)}</p>
+          <p className="text-sm opacity-60">Mood Score</p>
+          <p className="text-2xl">{avgMood.toFixed(2)}</p>
         </div>
       </div>
 
       {/* Mood Health Bar */}
       <div>
-        <p className="text-xl opacity-60 mb-4">Overall Mood Level</p>
+        <p className="text-sm opacity-60 mb-4">Overall Mood Level</p>
         <div className="relative h-16 bg-[rgba(247,247,255,0.1)] border-2 border-[rgba(247,247,255,0.2)] rounded-lg overflow-hidden">
           <div
             className="h-full transition-all duration-500 ease-out"
@@ -109,12 +109,12 @@ export default function MoodChart({ moodData }: MoodChartProps) {
       {/* Top Emotions */}
       {topEmotions.length > 0 && (
         <div>
-          <p className="text-xl opacity-60 mb-3">Most Common Emotions</p>
+          <p className="text-sm opacity-60 mb-3">Most Common Emotions</p>
           <div className="flex flex-wrap gap-2">
             {topEmotions.map((emotion) => (
               <span
                 key={emotion}
-                className="text-xl px-3 py-1 border border-[rgba(247,247,255,0.1)] capitalize"
+                className="text-base px-3 py-1 border border-[rgba(247,247,255,0.1)] capitalize"
               >
                 {emotion}
               </span>

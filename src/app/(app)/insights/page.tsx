@@ -68,9 +68,9 @@ export default function InsightsPage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="w-10 h-10" />
-            <h1 className="text-6xl">Insights</h1>
+            <h1 className="text-3xl">Insights</h1>
           </div>
-          <p className="opacity-80 text-2xl">
+          <p className="opacity-80 text-lg">
             AI-powered reflections on your writing journey
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function InsightsPage() {
           <button
             onClick={() => handleGenerate('weekly')}
             disabled={generating}
-            className="px-6 py-3 border border-[#F7F7FF] transition-colors hover:bg-[rgba(247,247,255,0.1)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-2xl"
+            className="px-6 py-3 border border-[#F7F7FF] transition-colors hover:bg-[rgba(247,247,255,0.1)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-base"
           >
             {generating && generationType === 'weekly' ? (
               <>
@@ -95,7 +95,7 @@ export default function InsightsPage() {
           <button
             onClick={() => handleGenerate('monthly')}
             disabled={generating}
-            className="px-6 py-3 border border-[#F7F7FF] transition-colors hover:bg-[rgba(247,247,255,0.1)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-2xl"
+            className="px-6 py-3 border border-[#F7F7FF] transition-colors hover:bg-[rgba(247,247,255,0.1)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-base"
           >
             {generating && generationType === 'monthly' ? (
               <>
@@ -111,7 +111,7 @@ export default function InsightsPage() {
         {/* Error Message */}
         {error && (
           <div className="mb-8 p-4 border border-red-400/30 bg-red-400/5">
-            <p className="text-xl">{error}</p>
+            <p className="text-base">{error}</p>
           </div>
         )}
 
@@ -129,11 +129,11 @@ export default function InsightsPage() {
         ) : (
           <div className="text-center py-12">
             <Sparkles className="w-16 h-16 mx-auto mb-4 opacity-40" />
-            <p className="opacity-60 mb-4 text-2xl">
+            <p className="opacity-60 mb-4 text-lg">
               No reflections yet. Generate your first reflection to see AI insights
               about your writing journey.
             </p>
-            <p className="text-xl opacity-50">
+            <p className="text-base opacity-50">
               Write at least a few entries before generating a reflection for best
               results.
             </p>

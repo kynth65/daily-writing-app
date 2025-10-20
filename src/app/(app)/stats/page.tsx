@@ -73,16 +73,16 @@ export default function StatsPage() {
               </h2>
               <div className="space-y-4">
                 <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
-                  <span className="text-[#F7F7FF]/70">Average Words per Entry</span>
-                  <span className="text-[#F7F7FF] text-lg">{formatNumber(stats?.averageWords || 0)}</span>
+                  <span className="text-base text-[#F7F7FF]/70">Average Words per Entry</span>
+                  <span className="text-[#F7F7FF] text-base">{formatNumber(stats?.averageWords || 0)}</span>
                 </div>
                 <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
-                  <span className="text-[#F7F7FF]/70">Writing Frequency</span>
-                  <span className="text-[#F7F7FF] text-lg">{stats?.writingFrequency || 0} entries/week</span>
+                  <span className="text-base text-[#F7F7FF]/70">Writing Frequency</span>
+                  <span className="text-[#F7F7FF] text-base">{stats?.writingFrequency || 0} entries/week</span>
                 </div>
                 <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
-                  <span className="text-[#F7F7FF]/70">Best Writing Day</span>
-                  <span className="text-[#F7F7FF] text-lg">{stats?.bestWritingDay || 'N/A'}</span>
+                  <span className="text-base text-[#F7F7FF]/70">Best Writing Day</span>
+                  <span className="text-[#F7F7FF] text-base">{stats?.bestWritingDay || 'N/A'}</span>
                 </div>
               </div>
             </div>
@@ -95,20 +95,20 @@ export default function StatsPage() {
               </h2>
               <div className="space-y-4">
                 <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
-                  <span className="text-[#F7F7FF]/70">This Week</span>
-                  <span className="text-[#F7F7FF] text-lg">{stats?.entriesThisWeek || 0} entries</span>
+                  <span className="text-base text-[#F7F7FF]/70">This Week</span>
+                  <span className="text-[#F7F7FF] text-base">{stats?.entriesThisWeek || 0} entries</span>
                 </div>
                 <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
-                  <span className="text-[#F7F7FF]/70">Words This Week</span>
-                  <span className="text-[#F7F7FF] text-lg">{formatNumber(stats?.wordsThisWeek || 0)}</span>
+                  <span className="text-base text-[#F7F7FF]/70">Words This Week</span>
+                  <span className="text-[#F7F7FF] text-base">{formatNumber(stats?.wordsThisWeek || 0)}</span>
                 </div>
                 <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
-                  <span className="text-[#F7F7FF]/70">This Month</span>
-                  <span className="text-[#F7F7FF] text-lg">{stats?.entriesThisMonth || 0} entries</span>
+                  <span className="text-base text-[#F7F7FF]/70">This Month</span>
+                  <span className="text-[#F7F7FF] text-base">{stats?.entriesThisMonth || 0} entries</span>
                 </div>
                 <div className="flex justify-between items-center pb-4 border-b border-[#F7F7FF]/10">
-                  <span className="text-[#F7F7FF]/70">Words This Month</span>
-                  <span className="text-[#F7F7FF] text-lg">{formatNumber(stats?.wordsThisMonth || 0)}</span>
+                  <span className="text-base text-[#F7F7FF]/70">Words This Month</span>
+                  <span className="text-[#F7F7FF] text-base">{formatNumber(stats?.wordsThisMonth || 0)}</span>
                 </div>
               </div>
             </div>
@@ -125,7 +125,7 @@ export default function StatsPage() {
 
           {/* Insights & Motivation */}
           <div className="border border-[#F7F7FF]/10 rounded-lg p-8">
-            <h2 className="text-2xl font-normal text-[#F7F7FF] mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-normal text-[#F7F7FF] mb-4 flex items-center gap-2">
               <Zap size={24} />
               Your Progress
             </h2>

@@ -36,7 +36,7 @@ export default function SignupPage() {
             </p>
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-8 text-center text-base">
             <span className="text-[#F7F7FF]/70">Already have an account? </span>
             <Link
               href="/login"

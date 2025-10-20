@@ -77,7 +77,7 @@ export function MonthCalendar({ entries, onDayClick, currentMonth, onMonthChange
           <ChevronLeft size={18} className="text-[#F7F7FF] sm:w-5 sm:h-5" />
         </button>
 
-        <h2 className="text-base sm:text-lg md:text-xl font-normal text-[#F7F7FF] tracking-wide">
+        <h2 className="text-xl font-normal text-[#F7F7FF] tracking-wide">
           {format(currentMonth, 'MMMM yyyy')}
         </h2>
 
@@ -93,7 +93,7 @@ export function MonthCalendar({ entries, onDayClick, currentMonth, onMonthChange
       {/* Weekday headers */}
       <div className="grid grid-cols-7 border-b border-[#F7F7FF]/10 bg-[#3A4F41]">
         {weekDays.map((day) => (
-          <div key={day} className="p-1.5 sm:p-2 md:p-3 text-center text-xs sm:text-sm font-normal text-[#F7F7FF]/60 uppercase tracking-wider">
+          <div key={day} className="p-1.5 sm:p-2 md:p-3 text-center text-sm font-normal text-[#F7F7FF]/60 uppercase tracking-wider">
             <span className="hidden sm:inline">{day}</span>
             <span className="sm:hidden">{day.charAt(0)}</span>
           </div>

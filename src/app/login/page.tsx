@@ -28,7 +28,7 @@ export default function LoginPage() {
         <div className="border border-[#F7F7FF]/10 p-8 rounded-lg">
           <AuthForm mode="login" />
 
-          <div className="mt-8 text-center">
+          <div className="mt-8 text-center text-base">
             <span className="text-[#F7F7FF]/70">Don&apos;t have an account? </span>
             <Link
               href="/signup"

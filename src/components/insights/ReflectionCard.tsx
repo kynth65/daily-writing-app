@@ -28,16 +28,16 @@ export default function ReflectionCard({ reflection }: ReflectionCardProps) {
       {/* Header */}
       <div className="mb-4">
         <div className="flex items-start justify-between gap-4 mb-2">
-          <h3 className="text-4xl">{reflection.title}</h3>
-          <span className="text-xl opacity-60 whitespace-nowrap">
+          <h3 className="text-xl">{reflection.title}</h3>
+          <span className="text-sm opacity-60 whitespace-nowrap">
             {periodLabel}
           </span>
         </div>
-        <p className="text-xl opacity-60">
+        <p className="text-sm opacity-60">
           {format(new Date(reflection.period_start), "MMM d")} -{" "}
           {format(new Date(reflection.period_end), "MMM d, yyyy")}
         </p>
-        <p className="text-xl opacity-60 mt-1">
+        <p className="text-sm opacity-60 mt-1">
           {reflection.entry_count}{" "}
           {reflection.entry_count === 1 ? "entry" : "entries"}
         </p>
@@ -46,12 +46,12 @@ export default function ReflectionCard({ reflection }: ReflectionCardProps) {
       {/* Themes */}
       {reflection.themes && reflection.themes.length > 0 && (
         <div className="mb-4">
-          <p className="text-xl opacity-60 mb-2">Themes</p>
+          <p className="text-sm opacity-60 mb-2">Themes</p>
           <div className="flex flex-wrap gap-2">
             {reflection.themes.map((theme, index) => (
               <span
                 key={index}
-                className="text-xl px-3 py-1 border border-[rgba(247,247,255,0.1)]"
+                className="text-base px-3 py-1 border border-[rgba(247,247,255,0.1)]"
               >
                 {theme}
               </span>
@@ -62,7 +62,7 @@ export default function ReflectionCard({ reflection }: ReflectionCardProps) {
 
       {/* Content */}
       <div className="mb-4">
-        <p className="text-xl leading-relaxed whitespace-pre-line">
+        <p className="text-base leading-relaxed whitespace-pre-line">
           {reflection.content}
         </p>
       </div>
@@ -70,10 +70,10 @@ export default function ReflectionCard({ reflection }: ReflectionCardProps) {
       {/* Insights */}
       {reflection.insights && reflection.insights.length > 0 && (
         <div>
-          <p className="text-xl opacity-60 mb-2">Key Insights</p>
+          <p className="text-sm opacity-60 mb-2">Key Insights</p>
           <ul className="space-y-2">
             {reflection.insights.map((insight, index) => (
-              <li key={index} className="text-xl opacity-80">
+              <li key={index} className="text-base opacity-80">
                 • {insight}
               </li>
             ))}
