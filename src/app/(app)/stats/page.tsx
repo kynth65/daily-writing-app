@@ -1,11 +1,19 @@
 'use client'
 
-import { TrendingUp, Calendar, Award, Zap, Flame, BookOpen, PenTool } from 'lucide-react'
+import { TrendingUp, Calendar, Award, Zap, Flame, BookOpen, PenTool, Smile } from 'lucide-react'
 import StatCard from '@/components/stats/StatCard'
+import MoodChart from '@/components/insights/MoodChart'
 import { useStats } from '@/hooks/useStats'
+import useSWR from 'swr'
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function StatsPage() {
   const { stats, isLoading: loading } = useStats()
+  const { data: moodData } = useSWR('/api/ai/mood?days=30', fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60000, // 1 minute
+  })
 
   const formatNumber = (num: number) => {
     return num.toLocaleString()
@@ -104,6 +112,15 @@ export default function StatsPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Mood Insights */}
+          <div className="border border-[#F7F7FF]/10 rounded-lg p-6 mb-10">
+            <h2 className="text-xl font-normal text-[#F7F7FF] mb-6 flex items-center gap-2">
+              <Smile size={24} />
+              Mood Insights
+            </h2>
+            <MoodChart moodData={moodData || []} />
           </div>
 
           {/* Insights & Motivation */}
