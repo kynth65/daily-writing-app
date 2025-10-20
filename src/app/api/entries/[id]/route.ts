@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import { analyzeSentiment, isAIEnabled } from '@/lib/ai/openai'
 
 export async function GET(
   request: Request,
@@ -84,6 +85,25 @@ export async function PUT(
 
     if (!data) {
       return NextResponse.json({ error: 'Entry not found' }, { status: 404 })
+    }
+
+    // Analyze sentiment in background (non-blocking)
+    if (isAIEnabled() && wordCount >= 10) {
+      analyzeSentiment(text)
+        .then(async (analysis) => {
+          await supabase
+            .from('entries')
+            .update({
+              sentiment: analysis.sentiment,
+              emotion: analysis.emotion,
+              mood_score: analysis.moodScore,
+            })
+            .eq('id', id)
+            .eq('user_id', user.id);
+        })
+        .catch((err) => {
+          console.error('Background sentiment analysis failed:', err);
+        });
     }
 
     return NextResponse.json(data)
