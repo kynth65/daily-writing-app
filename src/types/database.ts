@@ -18,6 +18,9 @@ export interface Database {
           created_at: string
           updated_at: string
           date: string
+          sentiment: string | null
+          emotion: string | null
+          mood_score: number | null
         }
         Insert: {
           id?: string
@@ -27,6 +30,9 @@ export interface Database {
           created_at?: string
           updated_at?: string
           date?: string
+          sentiment?: string | null
+          emotion?: string | null
+          mood_score?: number | null
         }
         Update: {
           id?: string
@@ -36,6 +42,9 @@ export interface Database {
           created_at?: string
           updated_at?: string
           date?: string
+          sentiment?: string | null
+          emotion?: string | null
+          mood_score?: number | null
         }
       }
       user_settings: {
@@ -46,6 +55,9 @@ export interface Database {
           reminder_enabled: boolean
           created_at: string
           updated_at: string
+          is_premium: boolean
+          subscription_status: string
+          subscription_ends_at: string | null
         }
         Insert: {
           user_id: string
@@ -54,6 +66,9 @@ export interface Database {
           reminder_enabled?: boolean
           created_at?: string
           updated_at?: string
+          is_premium?: boolean
+          subscription_status?: string
+          subscription_ends_at?: string | null
         }
         Update: {
           user_id?: string
@@ -62,6 +77,9 @@ export interface Database {
           reminder_enabled?: boolean
           created_at?: string
           updated_at?: string
+          is_premium?: boolean
+          subscription_status?: string
+          subscription_ends_at?: string | null
         }
       }
       user_streaks: {
@@ -90,6 +108,50 @@ export interface Database {
           total_entries?: number
           total_words?: number
           last_entry_date?: string | null
+          updated_at?: string
+        }
+      }
+      reflections: {
+        Row: {
+          id: string
+          user_id: string
+          title: string
+          content: string
+          reflection_type: string
+          period_start: string
+          period_end: string
+          entry_count: number
+          themes: Json
+          insights: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          title: string
+          content: string
+          reflection_type: string
+          period_start: string
+          period_end: string
+          entry_count?: number
+          themes?: Json
+          insights?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          title?: string
+          content?: string
+          reflection_type?: string
+          period_start?: string
+          period_end?: string
+          entry_count?: number
+          themes?: Json
+          insights?: Json
+          created_at?: string
           updated_at?: string
         }
       }

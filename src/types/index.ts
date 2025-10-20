@@ -12,6 +12,10 @@ export type UserStreak = Database['public']['Tables']['user_streaks']['Row']
 export type UserStreakInsert = Database['public']['Tables']['user_streaks']['Insert']
 export type UserStreakUpdate = Database['public']['Tables']['user_streaks']['Update']
 
+export type Reflection = Database['public']['Tables']['reflections']['Row']
+export type ReflectionInsert = Database['public']['Tables']['reflections']['Insert']
+export type ReflectionUpdate = Database['public']['Tables']['reflections']['Update']
+
 export interface User {
   id: string
   email: string
